@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/2/trunk/jni/com_googlecode_leptonica_android
+END
+jni.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2/trunk/jni/com_googlecode_leptonica_android/jni.cpp
+END
+pix.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2/trunk/jni/com_googlecode_leptonica_android/pix.cpp
+END
+pixa.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2/trunk/jni/com_googlecode_leptonica_android/pixa.cpp
+END
+config_auto.h
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2/trunk/jni/com_googlecode_leptonica_android/config_auto.h
+END
+Android.mk
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/2/trunk/jni/com_googlecode_leptonica_android/Android.mk
+END
+box.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/!svn/ver/2/trunk/jni/com_googlecode_leptonica_android/box.cpp
+END
+utilities.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/!svn/ver/2/trunk/jni/com_googlecode_leptonica_android/utilities.cpp
+END
+common.h
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/2/trunk/jni/com_googlecode_leptonica_android/common.h
+END
