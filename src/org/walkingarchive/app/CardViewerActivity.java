@@ -21,8 +21,9 @@ public class CardViewerActivity extends Activity {
         	json = new JSONObject(cardJson);
         	TextView cardName = (TextView) findViewById(R.id.cardName);
             cardName.setText(json.getString("name"));
+            
             TextView cardType = (TextView) findViewById(R.id.cardType);
-            if(json.getString("subtype").equals(""))
+            if(json.getString("subtype").equals("null"))
             	cardType.setText(json.getString("type"));
             else
             	cardType.setText(json.getString("type") + " - " + json.getString("subtype"));
