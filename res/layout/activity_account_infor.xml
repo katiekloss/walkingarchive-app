@@ -50,7 +50,7 @@
                android:textColor="#FFFFFF" />
 
            <EditText
-               android:id="@+id/editText1"
+               android:id="@+id/userName"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:ems="10"
@@ -76,7 +76,7 @@
                android:textAppearance="?android:attr/textAppearanceMedium" />
 
            <EditText
-               android:id="@+id/editText2"
+               android:id="@+id/emailAddress"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:ems="10"
@@ -91,6 +91,7 @@
           android:layout_below="@+id/linearLayout1"
           android:layout_marginTop="24dp"
           android:textColor="#FFFFFF"
+          android:onClick="onChangePassWordsDown"
           android:text="Change Passwords" />
 
         <Button
@@ -100,15 +101,17 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/linearLayout1"
             android:textColor="#FFFFFF"
+            android:onClick="onSaveDown"
             android:text="Save" />
 
       <Button
-          android:id="@+id/cancelButton"
+          android:id="@+id/clearButton"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_alignParentLeft="true"
           android:layout_below="@+id/button1"
           android:text="Clear"
+          android:onClick="onClearButtonDown"
           android:textColor="#FFFFFF" />
 
       <Button
@@ -117,7 +120,8 @@
           android:layout_height="wrap_content"
           android:layout_alignParentLeft="true"
           android:layout_below="@+id/button2"
-           android:textColor="#FFFFFF"
+          android:textColor="#FFFFFF"
+          android:onClick="onGoBackDown"
           android:text="Go back" />
 
       </LinearLayout>
