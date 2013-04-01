@@ -86,6 +86,7 @@
               android:layout_height="wrap_content"
               android:layout_alignParentLeft="true"
               android:layout_below="@+id/button2"
+              android:onClick="onGoBackButtonDown"
               android:text="Go back" />
       </LinearLayout>
 

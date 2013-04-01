@@ -3,6 +3,13 @@ package org.walkingarchive.app;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.walkingarchive.app.ui.SearchResult;
+
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ListActivity;
@@ -24,51 +31,71 @@ import android.view.MotionEvent;
 
 public class TradeHistoryActivity extends ListActivity {
 	final Context context = this;
-	final String[] list = new String[] {
-		"May 15, 2012",
-        "Apr. 6, 2012",
-        "Oct. 10, 2012",
-        "Sep. 10, 2012",
-        "Mar. 10, 2012",
-        "Feb. 25, 2002",
-        "May 15, 20011",
-        "Sep. 6, 2011",
-        "Oct. 10, 2011",
-        "Sep. 10, 2011",
-        "Mar. 10, 2010",
-        "Feb. 25, 2010",
-        "May 15, 2009",
-        "Sep. 6, 2009",
+//	final String[] list = new String[] {
+	//	"May 15, 2012",
+      //  "Apr. 6, 2012",
+     //   "Oct. 10, 2012",
+     //   "Sep. 10, 2012",
+     //   "Mar. 10, 2012",
+     //   "Feb. 25, 2002",
+     //   "May 15, 20011",
+      //  "Sep. 6, 2011",
+      //  "Oct. 10, 2011",
+     //   "Sep. 10, 2011",
+     //   "Mar. 10, 2010",
+     //   "Feb. 25, 2010",
+     //   "May 15, 2009",
+     //   "Sep. 6, 2009",
 
-    };
+   // };
 	
 	private ListView lv;
-	private ArrayAdapter<String> listAdapter ; 
+	private ArrayAdapter<SearchResult> listAdapter ; 
+	private ArrayList<SearchResult>  historyList = new ArrayList<SearchResult>();
+	private ArrayList<SearchResult> showhistoryList = new ArrayList<SearchResult>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_trade_history);
 		
-        lv = getListView();
+		String resultString = getIntent().getExtras().getString("resultString");
+		JSONArray json;
+        try
+		{
+			json = new JSONArray(resultString);
+		}
+		catch(JSONException e)
+		{
+			// Hmm...
+			return;
+		}
 		
-		ArrayList<String> cardList = new ArrayList<String>();  
-		cardList.addAll( Arrays.asList(list) );  
+        for(int i = 0; i < json.length(); i++)
+        {
+        	JSONObject cardJson;
+        	try
+        	{
+				cardJson = json.getJSONObject(i);
+			}
+        	catch (JSONException e)
+        	{
+        		// TODO: Log/whatever this
+        		continue;
+			}
+        	historyList.add(new SearchResult(cardJson));
+        	showhistoryList.add(new SearchResult(cardJson));
+        }
+        
+        lv = getListView(); 
 		
-		listAdapter = new ArrayAdapter<String>(this, R.layout.list_text, R.id.listText, cardList);
+		listAdapter = new ArrayAdapter<SearchResult>(this, R.layout.list_text, R.id.listText, historyList);
 		
-		 for(int i=0; i < list.length; i++ ){
-		        
-	        	listAdapter.add( list[i]);  
-	  
-	        } 
-		 
 		 lv.setAdapter( listAdapter ); 
 		 
-		 final EditText cardName = (EditText) findViewById(R.id.cardName);
-	     //   cardName.setText("");
+		 final EditText tradeDate = (EditText) findViewById(R.id.tradeDate);
 	        
-	        cardName.addTextChangedListener(new TextWatcher() {
+		 tradeDate.addTextChangedListener(new TextWatcher() {
 	        	 
 	        	   public void afterTextChanged(Editable s) {
 	        	   }
@@ -82,35 +109,65 @@ public class TradeHistoryActivity extends ListActivity {
 	        		   listAdapter.clear();
 	        		  
 	        		   
-	        		   if(!cardName.getText().toString().equals("")){
-	        	        	String name = cardName.getText().toString();
+	        		   if(!tradeDate.getText().toString().equals("")){
+	        	        	String name = tradeDate.getText().toString();
 	        	        	
-	        	        	for(int i = 0; i < list.length; i++){
-	        	        		if (list[i].contains(name)){
-	        	        			listAdapter.add(list[i]);
-	        	        		}
-	        	        	}       	
+	        	        	for(int i=0; i < showhistoryList.size(); i++){
+	        	        		
+	        	        		SearchResult sr = showhistoryList.get(i);
+	        	        		String cardJson = sr.toJson();
+	        	        		
+	        	        		String cardNames;
+	        	        		JSONObject json;
+	        	        		
+	        	        		try{
+	        	                	json = new JSONObject(cardJson);
+	        	                	cardNames = json.getString("name");
+	        	                	
+	        	        	    }
+	        	        		catch(JSONException e){
+	        	        	        	throw new RuntimeException(e);
+	        	        	    }
+	        	        	   
+	        	        	   if(cardNames.contains(name)){
+	        	        		   listAdapter.add(sr);
+	        	        	   }    	
+	        	        	}  	
+	        	     }else{
+	        	    	 
+	        	    	 for(int i =0; i< showhistoryList.size(); i++){
+	        	    		 
+	        	    		 listAdapter.add(showhistoryList.get(i));
+	        	    		 
+	        	    	 }
+	        	    	 
+	        	    	 
+	        	    	 
+	        	    	 
 	        	     }
+	        		   
+	        		   
+	        		   
 	        	   }
 	        	  });        
 	        
 	    lv.setTextFilterEnabled(true);
 
-		addListenerOnButton();
-		ListView lv = getListView();
 		
-		lv.setTextFilterEnabled(true);
-
 		lv.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
+			public void onItemClick(AdapterView<?> adapter, View view,
 					int position, long id) {
 				// When clicked, show a toast with the TextView text
 				
-				Intent intent = new Intent(context, CardViewerActivity.class);
-                startActivity(intent); 				
-	
+				SearchResult result = (SearchResult) adapter.getItemAtPosition(position);
+				Intent cardViewerIntent = new Intent( TradeHistoryActivity.this, CardViewerActivity.class);
+				cardViewerIntent.putExtra("cardJson", result.toJson());
+				TradeHistoryActivity.this.startActivity(cardViewerIntent);
 			}
 		});
+		
+		lv.setTextFilterEnabled(true);
+
 		
 		lv.setOnTouchListener(new ListView.OnTouchListener() {
 	        @Override
@@ -135,34 +192,13 @@ public class TradeHistoryActivity extends ListActivity {
 	    });
 		
 	}
-	
-	
-	
 
-	public void addListenerOnButton() {
-	   	 
-		final Context context = this;
-		
-		Button gobackButton = (Button) findViewById(R.id.gobackButton);
-		
-		gobackButton.setOnClickListener(new OnClickListener() {
- 
-			@Override
-			public void onClick(View arg0) {
- 
-			    Intent intent = new Intent(context, MainActivity.class);
-                            startActivity(intent);   
- 
-			}
- 
-		});
-	}
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.trade_history, menu);
-		return true;
-	}
-
+	public void onGoBackButtonDown(View v)
+    {
+    	
+    	
+    	Intent searchIntent = new Intent(this, MainActivity.class);
+    	this.startActivity(searchIntent);
+    }
 }

@@ -67,7 +67,7 @@
               android:textAppearance="?android:attr/textAppearanceMedium" />
 
           <TextView
-              android:id="@+id/textView7"
+              android:id="@+id/cardValue"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:text="$0.08 - $0.70"
@@ -143,6 +143,7 @@ Hanna mouthed a silent plea, mourning a crushed dream."
           android:layout_alignParentLeft="true"
           android:layout_below="@+id/textView13"
           android:textColor="#FFFFFF"
+          android:onClick="onGoBackButtonDown"
           android:text="Go back" />
       
       <TextView
@@ -156,7 +157,7 @@ Hanna mouthed a silent plea, mourning a crushed dream."
           android:textColor="#FFFFFF" />
 
       <TextView
-          android:id="@+id/textView15"
+          android:id="@+id/cardMana"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_above="@+id/linearLayout1"
@@ -166,17 +167,7 @@ Hanna mouthed a silent plea, mourning a crushed dream."
           android:textColor="#FFFFFF" />
 
       <TextView
-          android:id="@+id/textView5"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_above="@+id/textView15"
-          android:layout_alignLeft="@+id/textView4"
-          android:text="Mana Cost:"
-          android:textAppearance="?android:attr/textAppearanceMedium"
-          android:textColor="#FFFFFF" />
-
-      <TextView
-          android:id="@+id/textView3"
+          android:id="@+id/cardType"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignLeft="@+id/textView4"
@@ -185,7 +176,7 @@ Hanna mouthed a silent plea, mourning a crushed dream."
           android:textColor="#FFFFFF" />
 
       <TextView
-          android:id="@+id/textView2"
+          android:id="@+id/cardName"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_alignLeft="@+id/textView4"
@@ -201,6 +192,16 @@ Hanna mouthed a silent plea, mourning a crushed dream."
           android:layout_alignBottom="@+id/textView1"
           android:layout_alignParentLeft="true"
           android:background="#ffffff" />
+
+      <TextView
+          android:id="@+id/textView5"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_above="@+id/cardMana"
+          android:layout_alignLeft="@+id/cardType"
+          android:text="Mana Cost:"
+          android:textAppearance="?android:attr/textAppearanceMedium"
+          android:textColor="#FFFFFF" />
 
   </RelativeLayout>
 

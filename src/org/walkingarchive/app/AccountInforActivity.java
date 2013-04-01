@@ -1,5 +1,10 @@
 package org.walkingarchive.app;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.walkingarchive.app.ui.SearchResult;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -8,73 +13,70 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class AccountInforActivity extends Activity {
-
+	JSONArray json;
+	JSONObject userJson;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_account_infor);
 		
-		 addListenerOnButton();
-		
-	}
-	
-	
-	public void addListenerOnButton() {
-   	 
-		final Context context = this;
-		Button changePwdButton = (Button) findViewById(R.id.changePwdButton);
-		Button saveButton = (Button) findViewById(R.id.saveButton);
-		Button cancelButton = (Button) findViewById(R.id.cancelButton);
-		Button gobackButton = (Button) findViewById(R.id.gobackButton);
-		
-		changePwdButton.setOnClickListener(new OnClickListener() {
- 
-			@Override
-			public void onClick(View arg0) {
- 
-			    Intent intent = new Intent(context, ChangePwdActivity.class);
-                            startActivity(intent);   
- 
+		 String resultString = getIntent().getExtras().getString("resultString");
+	        
+			try
+			{
+				json = new JSONArray(resultString);
 			}
- 
-		});
-		
-		
-		cancelButton.setOnClickListener(new OnClickListener() {
-			 
-			@Override
-			public void onClick(View arg0) {
- 
-			      
- 
+			catch(JSONException e)
+			{
+				// Hmm...
+				return;
 			}
- 
-		});
-		
-		gobackButton.setOnClickListener(new OnClickListener() {
-			 
-			@Override
-			public void onClick(View arg0) {
- 
-			    Intent intent = new Intent(context, MainActivity.class);
-                            startActivity(intent);   
- 
-			}
- 
-		});
-		
- 
-	}
-	
-	
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.account_infor, menu);
-		return true;
+	        try{
+	        	    userJson = json.getJSONObject(0);
+					EditText userName = (EditText) findViewById(R.id.userName);
+			        userName.setText(userJson.getString("name"));
+			        EditText passWord = (EditText) findViewById(R.id.emailAddress);
+			        passWord.setText(userJson.getString("name"));
+					
+			}catch (JSONException e)
+	        {
+	        		// TODO: Log/whatever this
+	        }
+
 	}
+
+	
+	 public void onSaveDown(View v){
+		 	/////////////////
+		 	/////////////////
+		 	/////////////////
+		 	/////////////////
+	 }
+	 
+	 public void onChangePassWordsDown(View v){
+		 	SearchResult sr = new SearchResult(userJson);
+		 	Intent cardViewerIntent = new Intent(AccountInforActivity.this, ChangePwdActivity.class);
+			cardViewerIntent.putExtra("userJson", sr.toJson());
+	    	AccountInforActivity.this.startActivity(cardViewerIntent); 
+	 }
+	
+	 public void onClearButtonDown(View v){
+		  EditText userName = (EditText) findViewById(R.id.userName);
+	      userName.setText("");
+	      EditText emailAddress = (EditText) findViewById(R.id.emailAddress);
+	      emailAddress.setText("");
+		 
+	 }
+	 
+	 public void onGoBackDown(View v){
+		 Intent intent = new Intent(this, MainActivity.class);
+         startActivity(intent);  
+		 
+	 }
 
 }

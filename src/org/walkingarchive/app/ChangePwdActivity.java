@@ -1,5 +1,10 @@
 package org.walkingarchive.app;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.walkingarchive.app.ui.SearchResult;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -15,97 +20,116 @@ import android.widget.TextView;
 
 public class ChangePwdActivity extends Activity {
 
+	private String oldPassword;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_change_pwd);
-		
-		addListenerOnButton();
-		
-		final EditText newPassword1 = (EditText) findViewById(R.id.newPassword1);
-		final EditText newPassword2 = (EditText) findViewById(R.id.newPassword2);
-		
-		
-		
-		newPassword2.addTextChangedListener(new TextWatcher() {
+
+		final EditText newPwd1 = (EditText) findViewById(R.id.newPwd1);
+		final EditText newPwd2 = (EditText) findViewById(R.id.newPwd2);
+
+		newPwd2.addTextChangedListener(new TextWatcher() {
 	        	 
         public void afterTextChanged(Editable s) {
         	TextView  newPwd = (TextView) findViewById(R.id.newPwd);
-        	
-       		if(! newPassword1.equals(newPassword2)){ 		   
-       			   
-       			   newPwd.setText("The passwords don't match. Please try again.");
-       		}else{
-       			newPwd.setText("");
+        	newPwd.setText("");
        		}
-       		   
-        }
-       	 
-       	   public void beforeTextChanged(CharSequence s, int start, 
-       	     int count, int after) {
-       	   }
-       	 
-       	   public void onTextChanged(CharSequence s, int start, 
-       	     int before, int count) {
-       	   }
+
+		@Override
+		public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+				int arg3) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+				int arg3) {
+			// TODO Auto-generated method stub
+			
+		}
        	  });       
 		
-	}
-	
-	
-	public void addListenerOnButton() {
-   	 
-		final Context context = this;
-		Button confirmButton = (Button) findViewById(R.id.confirmButton);
-		Button clearButton = (Button) findViewById(R.id.clearButton);
-		Button gobackButtonToAcct = (Button) findViewById(R.id.gobackButtonToAcct);
-		
-		confirmButton.setOnClickListener(new OnClickListener() {
- 
+		newPwd1.addTextChangedListener(new TextWatcher() {
+       	 
+	        public void afterTextChanged(Editable s) {
+	        	TextView  newPwd = (TextView) findViewById(R.id.newPwd);
+	        	newPwd.setText("");
+	       		}
+
 			@Override
-			public void onClick(View arg0) {
- 
-				Intent intent = new Intent(context, MainActivity.class);
-                startActivity(intent);   
- 
+			public void beforeTextChanged(CharSequence arg0, int arg1,
+					int arg2, int arg3) {
+				// TODO Auto-generated method stub
+				
 			}
- 
-		});
-		
-		
-		clearButton.setOnClickListener(new OnClickListener() {
-			 
+
 			@Override
-			public void onClick(View arg0) {
- 
-				Intent intent = new Intent(context, MainActivity.class);
-                startActivity(intent);   
- 
+			public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+					int arg3) {
+				// TODO Auto-generated method stub
+				
 			}
- 
-		});
-		
-		gobackButtonToAcct.setOnClickListener(new OnClickListener() {
-			 
-			@Override
-			public void onClick(View arg0) {
- 
-			    Intent intent = new Intent(context, AccountInforActivity.class);
-                            startActivity(intent);   
- 
-			}
- 
-		});
+
+	       	  });       
 		
 		
- 
+		
+		JSONObject json;
+		
+		String userJson = getIntent().getExtras().getString("userJson");
+		 try
+	        {
+	        	json = new JSONObject(userJson);
+	          //  oldPassword = json.getString("password");
+	        }
+		 catch(JSONException e)
+	     {
+	        	throw new RuntimeException(e);
+	     }
+		
 	}
+
 	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.change_pwd, menu);
-		return true;
-	}
+	public void onConfirmButtonDown(View v){
+		EditText newPwd1 = (EditText) findViewById(R.id.newPwd1);
+		EditText newPwd2 = (EditText) findViewById(R.id.newPwd2);
+		TextView newPwd = (TextView ) findViewById(R.id.newPwd);
+		if(!newPwd1.getText().toString().equals(newPwd2.getText().toString())){ 		   
+			   
+			newPwd.setText("The passwords don't match. Please try again.");	
+			return;
+			
+		}else{
+			newPwd.setText("");
+		}
+		
+		 /////////////////
+		/////////////////
+		/////////////////
+		 
+	 }
+	
+	public void onClearButtonDown(View v){
+		
+		  EditText oldPwd = (EditText) findViewById(R.id.oldPwd);
+		  oldPwd.setText("");
+		  EditText newPwd1 = (EditText) findViewById(R.id.newPwd1);
+		  newPwd1.setText("");
+	      EditText newPwd2 = (EditText) findViewById(R.id.newPwd2);
+	      newPwd2.setText("");
+		 
+	 }
+	
+	public void onGoBackButtonDown(View v){
+		
+		Intent intent = new Intent(this, MainActivity.class);
+ 		startActivity(intent);
+		 
+	 }
+	
+
 
 }

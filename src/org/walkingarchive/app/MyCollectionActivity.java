@@ -2,6 +2,12 @@ package org.walkingarchive.app;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.walkingarchive.app.ui.SearchResult;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -17,39 +23,61 @@ import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class MyCollectionActivity extends ListActivity {
 	
 	final Context context = this;
-	final String[] list = new String[] { "Abandon Hope", "bandoned Outpost", "Abattoir Ghoul", "Abbey Gargoyles",  
-            "Abbey Griffin", "Backfire", "Backlash", "Backslide", "Dakkon", "Dakmor", "Dakmor Lancer"};   
 	private ListView lv;
-	private ArrayAdapter<String> listAdapter ; 
+	private ArrayAdapter<SearchResult> listAdapter ; 
+	private ArrayList<SearchResult> cardList = new ArrayList<SearchResult>();
+	private ArrayList<SearchResult> showcardList = new ArrayList<SearchResult>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_collection);		
 		
-		addListenerOnButton();
-		
+		String resultString = getIntent().getExtras().getString("resultString");
+        JSONArray json;
+        try
+		{
+			json = new JSONArray(resultString);
+		}
+		catch(JSONException e)
+		{
+			// Hmm...
+			return;
+		}
+       
+        
+        
+        for(int i = 0; i < json.length(); i++)
+        {
+        	JSONObject cardJson;
+        	try
+        	{
+				cardJson = json.getJSONObject(i);
+			}
+        	catch (JSONException e)
+        	{
+        		// TODO: Log/whatever this
+        		continue;
+			}
+        	cardList.add(new SearchResult(cardJson));
+        	showcardList.add(new SearchResult(cardJson));
+        }
+
 		lv = getListView();
 		
-		ArrayList<String> cardList = new ArrayList<String>();  
-		cardList.addAll( Arrays.asList(list) );  
+		listAdapter = new ArrayAdapter<SearchResult>(this, R.layout.list_text, R.id.listText, cardList);
 		
-		listAdapter = new ArrayAdapter<String>(this, R.layout.list_text, R.id.listText, cardList);
-		
-		 for(int i=0; i < list.length; i++ ){
-		        
-	        	listAdapter.add( list[i]);  
-	  
-	        } 
 		 
 		 lv.setAdapter( listAdapter ); 
 		 
@@ -67,9 +95,6 @@ public class MyCollectionActivity extends ListActivity {
 		      }
 		  });
 		 
-		
-		 
-	     //   cardName.setText("");
 	        
 	        cardName.addTextChangedListener(new TextWatcher() {
 	        	 
@@ -84,24 +109,49 @@ public class MyCollectionActivity extends ListActivity {
 	        	 
 	        	   public void onTextChanged(CharSequence s, int start, 
 	        	     int before, int count) {
-	        		   
-	        		   
-	        		   
+
 	        		   	listAdapter.clear();
-	        		  
-	        		   
+	        		   	
+	        		   	
 	        		   if(!cardName.getText().toString().equals("")){
 	        	        	String name = cardName.getText().toString();
 	        	        	
-	        	        	for(int i = 0; i < list.length; i++){
-	        	        		if (list[i].contains(name)){
-	        	        			listAdapter.add(list[i]);
-	        	        		}
-	        	        	}       	
+	        	        	
+	        	        	for(int i=0; i < showcardList.size(); i++){
+	        	        		
+	        	        		SearchResult sr = showcardList.get(i);
+	        	        		String cardJson = sr.toJson();
+	        	        		
+	        	        		String cardNames;
+	        	        		JSONObject json;
+	        	        		
+	        	        		try{
+	        	                	json = new JSONObject(cardJson);
+	        	                	cardNames = json.getString("name");
+	        	                	
+	        	        	    }
+	        	        		catch(JSONException e){
+	        	        	        	throw new RuntimeException(e);
+	        	        	    }
+	        	        	   
+	        	        	   if(cardNames.contains(name)){
+	        	        		   listAdapter.add(sr);
+	        	        	   }
+	        	        	     	
 	        	     }
 	        		
+	        	   }else{
+	        	    	 
+	        	    	 for(int i =0; i< showcardList.size(); i++){
+	        	    		 
+	        	    		 listAdapter.add(showcardList.get(i));
+	        	    		 
+	        	    	 }
+	        	    	 
+	        	    	 
 	        	   }
-	        	  });        
+	        	  }
+	      });        
 	        
 	        
 	        
@@ -129,32 +179,27 @@ public class MyCollectionActivity extends ListActivity {
 	        }
 	    });
 		
+		
+		lv.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> adapter, View view,
+					int position, long id) {
+				// When clicked, show a toast with the TextView text
+				
+				SearchResult result = (SearchResult) adapter.getItemAtPosition(position);
+				Intent cardViewerIntent = new Intent( MyCollectionActivity.this, CardViewerActivity.class);
+				cardViewerIntent.putExtra("cardJson", result.toJson());
+				MyCollectionActivity.this.startActivity(cardViewerIntent);
+			}
+		});
+		
+		lv.setTextFilterEnabled(true);
+		
 	}
 
-	public void addListenerOnButton() {
-   	 
-		final Context context = this;
-		
-		Button gobackButton = (Button) findViewById(R.id.gobackButton);
-		
-		gobackButton.setOnClickListener(new OnClickListener() {
- 
-			@Override
-			public void onClick(View arg0) {
- 
-			    Intent intent = new Intent(context, MainActivity.class);
-                            startActivity(intent);   
- 
-			}
- 
-		});
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.my_collection, menu);
-		return true;
-	}
+	public void onGoBackButtonDown(View v)
+    {
+    	Intent searchIntent = new Intent(this, MainActivity.class);
+    	this.startActivity(searchIntent);
+    }
 
 }
