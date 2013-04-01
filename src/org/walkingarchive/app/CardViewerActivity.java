@@ -4,7 +4,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class CardViewerActivity extends Activity {
@@ -35,15 +40,28 @@ public class CardViewerActivity extends Activity {
             TextView cardValue = (TextView) findViewById(R.id.cardValue);
             // TODO: Same for this, however the API does it...
             
-            TextView cardRules = (TextView) findViewById(R.id.cardRules);
+            TextView cardRules = (TextView) findViewById(R.id.textView9);
             cardRules.setText(json.getString("text"));
             
-            TextView cardFlavorText = (TextView) findViewById(R.id.cardFlavorText);
+            TextView cardFlavorText = (TextView) findViewById(R.id.textView13);
             cardFlavorText.setText(json.getString("flavortext"));
         }
         catch(JSONException e)
         {
         	throw new RuntimeException(e);
         }
+        
+        //addListenerOnButton();
     }
+	
+	
+	
+	
+	
+	public void onGoBackButtonDown(View v)
+    {
+    	Intent searchIntent = new Intent(this, MainActivity.class);
+    	this.startActivity(searchIntent);
+    }
+	
 }

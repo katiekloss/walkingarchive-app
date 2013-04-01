@@ -1,40 +1,67 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#000000"
     android:orientation="vertical" >
 
     <Button
         android:id="@+id/scanCardButton"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
         android:text="Scan Card" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TEXT SEARCH"
+        android:textColor="#FFFFFF"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 	<View
 	    android:layout_width="fill_parent"
 	    android:layout_height="1dip"
-	    android:background="#000000" />
+	    android:background="#FFFFFF" />
+
+	<TextView
+	    android:id="@+id/textView3"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:textColor="#FFFFFF"
+	    android:textAppearance="?android:attr/textAppearanceSmall" />
 	
     <EditText
         android:id="@+id/cardName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Card Name..." >
+        android:textColor="#FFFFFF"
+        android:hint="Enter Card Name here (optional)" >
 
         <requestFocus />
     </EditText>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Spinner
         android:id="@+id/setSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
         android:entries="@array/search_set_spinner_array"
         android:prompt="@string/search_set_spinner_prompt" />
 
@@ -42,6 +69,7 @@
         android:id="@+id/typeSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
         android:entries="@array/search_type_spinner_array" />
 
     <Spinner
@@ -52,9 +80,18 @@
 
     <Button
         android:id="@+id/searchButton"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="onSearchButtonDown"
+        android:textColor="#FFFFFF"
         android:text="Search" />
+
+    <Button
+        android:id="@+id/gobackButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
+        android:onClick="onGoBackButtonDown"
+        android:text="Go back" />
 
 </LinearLayout>
