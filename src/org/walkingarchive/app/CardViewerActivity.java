@@ -1,5 +1,10 @@
 package org.walkingarchive.app;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.text.NumberFormat;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -42,6 +47,36 @@ public class CardViewerActivity extends Activity {
             
             TextView cardFlavorText = (TextView) findViewById(R.id.textView13);
             cardFlavorText.setText(json.getString("flavortext"));
+            
+            TextView cardPrice = (TextView) findViewById(R.id.cardValue);
+            JSONArray prices = json.getJSONArray("prices");
+            if(prices.length() > 0)
+            {
+	            Float min = Float.MAX_VALUE;
+	            Float max = Float.MIN_VALUE;
+	            
+	            for(int i = 0; i < prices.length(); i++)
+	            {
+	            	JSONObject price = prices.getJSONObject(i);
+	            	Float value = Float.valueOf((Integer) price.get("price"));
+	            	if(value < min) min = value;
+	            	if(value > max) max = value;
+	            }
+	            
+	            min = Math.round(min * 100) / 100f;
+	            max = Math.round(max * 100) / 100f;
+	            
+	            // You have to compare floats like this because no two floats
+	            // are exactly alike (like snowflakes!)
+	            if(Math.abs(max - min) < 0.01)
+	            	cardPrice.setText(NumberFormat.getCurrencyInstance().format(min));
+	            else
+	            	cardPrice.setText(NumberFormat.getCurrencyInstance().format(min)
+	            			+ " - " + NumberFormat.getCurrencyInstance().format(max)
+	            			);
+            } else {
+            	cardPrice.setText("No price data available");
+            }
         }
         catch(JSONException e)
         {
