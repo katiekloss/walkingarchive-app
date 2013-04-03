@@ -132,57 +132,9 @@ public class TradeHistoryActivity extends ListActivity {
 	        	    		 listAdapter.add(showhistoryList.get(i));
 	        	    		 
 	        	    	 }
-	        	    	 
-	        	    	 
-	        	    	 
-	        	    	 
-	        	     }
-	        		   
-	        		   
-	        		   
+	        	     }  
 	        	   }
-	        	  });        
-	        
-	    lv.setTextFilterEnabled(true);
-
-		
-		lv.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> adapter, View view,
-					int position, long id) {
-				// When clicked, show a toast with the TextView text
-				
-				SearchResult result = (SearchResult) adapter.getItemAtPosition(position);
-				Intent cardViewerIntent = new Intent( TradeHistoryActivity.this, CardViewerActivity.class);
-				cardViewerIntent.putExtra("cardJson", result.toJson());
-				TradeHistoryActivity.this.startActivity(cardViewerIntent);
-			}
-		});
-		
-		lv.setTextFilterEnabled(true);
-
-		
-		lv.setOnTouchListener(new ListView.OnTouchListener() {
-	        @Override
-	        public boolean onTouch(View v, MotionEvent event) {
-	            int action = event.getAction();
-	            switch (action) {
-	            case MotionEvent.ACTION_DOWN:
-	                // Disallow ScrollView to intercept touch events.
-	                v.getParent().requestDisallowInterceptTouchEvent(true);
-	                break;
-
-	            case MotionEvent.ACTION_UP:
-	                // Allow ScrollView to intercept touch events.
-	                v.getParent().requestDisallowInterceptTouchEvent(false);
-	                break;
-	            }
-
-	            // Handle ListView touch events.
-	            v.onTouchEvent(event);
-	            return true;
-	        }
-	    });
-		
+	        	  });
 	}
 
 	
