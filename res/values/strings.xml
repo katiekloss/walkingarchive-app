@@ -39,5 +39,9 @@
     <string name="title_activity_account_infor">AccountInforActivity</string>
     <string name="title_activity_change_pwd">ChangePwdActivity</string>
     <string name="title_activity_trade_history">TradeHistoryActivity</string>
+    <string name="title_activity_ocr">OCR</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_image">ImageActivity</string>
 
 </resources>
