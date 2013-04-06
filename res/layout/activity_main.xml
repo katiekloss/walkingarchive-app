@@ -43,6 +43,7 @@
 		    android:layout_width="match_parent"
 		    android:layout_height="100dp"
 		    android:textColor="#FFFFFF"
+		    android:onClick="onTradeButtonDown"
 		    android:text="Trade" />
 		
 		<Button

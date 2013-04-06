@@ -54,7 +54,7 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:ems="10"
-               android:text="abc"
+               android:hint="abc"
                android:textColor="#ffffff"
                android:textColorHint="#ffffff" >
 
@@ -80,7 +80,7 @@
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:ems="10"
-               android:text="abc@case.edu"
+               android:hint="abc@case.edu"
                android:textColor="#FFFFFF" />
           
         <Button

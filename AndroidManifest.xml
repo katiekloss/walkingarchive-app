@@ -15,14 +15,20 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity
-            android:name="org.walkingarchive.app.MainActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
+         <activity
+            android:name="org.walkingarchive.app.LoginActivity"
+            android:label="@string/title_activity_login" >
+             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+             
+        </activity>
+        <activity
+            android:name="org.walkingarchive.app.MainActivity"
+            android:label="@string/app_name" >
+           
         </activity>
         <activity android:name="org.walkingarchive.app.SearchActivity" />
         <activity android:name="org.walkingarchive.app.SearchResultsActivity" />
@@ -42,6 +48,19 @@
         <activity
             android:name="org.walkingarchive.app.TradeHistoryActivity"
             android:label="@string/title_activity_trade_history" >
+        </activity>
+       
+        <activity
+            android:name="org.walkingarchive.app.RegisterActivity"
+            android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name="org.walkingarchive.app.TradeDetailActivity"
+            android:label="@string/title_activity_trade_detail" >
+        </activity>
+        <activity
+            android:name="org.walkingarchive.app.TradeActivity"
+            android:label="@string/title_activity_trade" >
         </activity>
     </application>
 

@@ -32,6 +32,12 @@ public class MainActivity extends Activity {
     	this.startActivity(searchIntent);
     }
     
+    public void onTradeButtonDown(View v)
+    {
+    	Intent searchIntent = new Intent(this, TradeActivity.class);
+    	this.startActivity(searchIntent);
+    }
+    
     public void onMyCollectionButtonDown(View v)
     {
     	DownloadStringAsyncTask task = new DownloadStringAsyncTask(

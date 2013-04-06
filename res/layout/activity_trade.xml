@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="#000000"
+  android:fillViewport="true">
+
+  <RelativeLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+       >
+	<LinearLayout
+ 		    android:id="@+id/linearLayout1"
+ 		    android:layout_width="fill_parent"
+ 		    android:layout_height="wrap_content"
+ 		    android:layout_alignParentLeft="true"
+ 		    android:layout_below="@+id/editView1"
+ 		    android:orientation="vertical" >
+
+		<TextView
+		    android:id="@+id/textView1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="24dp"
+		    android:text="Trade"
+		    android:textAppearance="?android:attr/textAppearanceLarge"
+		    android:textColor="#FFFFFF" />
+     
+		<View
+	    android:layout_width="fill_parent"
+	    android:layout_height="1dip"
+	    android:layout_below="@+id/textView1"
+	    android:background="#ffffff" />
+
+		<Button
+		    android:id="@+id/button1"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@+id/textView1"
+		    android:text="Scan"
+		    android:textColor="#ffffff" />
+
+		<TextView
+		    android:id="@+id/textView5"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content" />
+
+		<TextView
+		    android:id="@+id/textView2"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="Card Name"
+		    android:layout_below="@+id/button1"
+		    android:textAppearance="?android:attr/textAppearanceMedium"
+		    android:textColor="#ffffff" />
+
+		<EditText
+		    android:id="@+id/editText1"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@+id/textView2"
+		    android:ems="10"
+		    android:hint="Enter a card name..."
+		    android:textColor="#ffffff" >
+
+		    <requestFocus />
+		</EditText>
+
+ 	<Button
+ 		        android:id="@+id/button2"
+ 		        android:layout_width="fill_parent"
+ 		        android:layout_height="wrap_content"
+ 		        android:text="Confirm"
+ 		        android:textColor="#ffffff" />
+		
+		</LinearLayout>
+	
+ 		<LinearLayout
+ 		    android:id="@+id/linearLayout2"
+ 		    android:layout_width="fill_parent"
+ 		    android:layout_height="wrap_content"
+ 		    android:layout_alignParentLeft="true"
+ 		    android:layout_below="@+id/linearLayout1"
+ 		    android:orientation="vertical" >
+
+		<View
+ 		        android:layout_width="fill_parent"
+ 		        android:layout_height="1dip"
+ 		        android:background="#ffffff" />
+
+ 		    <TextView
+ 		        android:id="@+id/textView6"
+ 		        android:layout_width="wrap_content"
+ 		        android:layout_height="wrap_content"
+ 		        android:text="Buy cards"
+ 		        android:textAppearance="?android:attr/textAppearanceMedium"
+ 		        android:textColor="#ffffff" />
+
+ 		    <ListView
+ 		        android:id="@+id/buyCardsList"
+ 		        android:layout_width="fill_parent"
+ 		        android:layout_height="fill_parent"
+ 		        android:layout_weight="2"
+ 		        android:background="#000000"
+ 		        android:drawSelectorOnTop="false" >
+ 		    </ListView>
+
+ 		    <TextView
+ 		        android:id="@+id/textView3"
+ 		        android:layout_width="wrap_content"
+ 		        android:layout_height="wrap_content"
+ 		        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+ 		    <View
+ 		        android:layout_width="fill_parent"
+ 		        android:layout_height="1dip"
+ 		        android:background="#ffffff" />
+
+ 		    <TextView
+ 		        android:id="@+id/textView7"
+ 		        android:layout_width="wrap_content"
+ 		        android:layout_height="wrap_content"
+ 		        android:text="Sell Cards"
+ 		        android:textAppearance="?android:attr/textAppearanceMedium"
+ 		        android:textColor="#ffffff" />
+
+ 		    <TextView
+ 		        android:id="@+id/textView4"
+ 		        android:layout_width="wrap_content"
+ 		        android:layout_height="wrap_content"
+ 		        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+ 		    <ListView
+ 		        android:id="@+id/sellCardsList"
+ 		        android:layout_width="fill_parent"
+ 		        android:layout_height="fill_parent"
+ 		        android:layout_weight="2"
+ 		        android:background="#000000"
+ 		        android:drawSelectorOnTop="false" >
+ 		    </ListView>
+
+ 		    <TextView
+ 		        android:id="@+id/textView3"
+ 		        android:layout_width="wrap_content"
+ 		        android:layout_height="wrap_content"
+ 		        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+ 		    <Button
+ 		        android:id="@+id/gobackButton"
+ 		        android:layout_width="match_parent"
+ 		        android:layout_height="wrap_content"
+ 		        android:layout_alignParentLeft="true"
+ 		        android:layout_below="@+id/button2"
+ 		        android:onClick="onGoBackButtonDown"
+ 		        android:text="Go back"
+ 		        android:textColor="#ffffff" />
+ 		</LinearLayout>
+   
+  </RelativeLayout>
+
+</ScrollView>

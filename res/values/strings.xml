@@ -39,5 +39,9 @@
     <string name="title_activity_account_infor">AccountInforActivity</string>
     <string name="title_activity_change_pwd">ChangePwdActivity</string>
     <string name="title_activity_trade_history">TradeHistoryActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_trade_detail">TradeDetailActivity</string>
+    <string name="title_activity_trade">TradeActivity</string>
 
 </resources>

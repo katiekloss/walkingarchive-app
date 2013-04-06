@@ -1,34 +1,24 @@
 package org.walkingarchive.app;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.walkingarchive.app.ui.SearchResult;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class MyCollectionActivity extends ListActivity {
@@ -154,47 +144,20 @@ public class MyCollectionActivity extends ListActivity {
 	      });        
 	        
 	        
+	        lv.setOnItemClickListener(new OnItemClickListener() {
+				public void onItemClick(AdapterView<?> adapter, View view,
+						int position, long id) {
+					// When clicked, show a toast with the TextView text
+					
+					SearchResult result = (SearchResult) adapter.getItemAtPosition(position);
+					Intent cardViewerIntent = new Intent( MyCollectionActivity.this, CardViewerActivity.class);
+					cardViewerIntent.putExtra("cardJson", result.toJson());
+					MyCollectionActivity.this.startActivity(cardViewerIntent);
+				}
+			});
 	        
-	    lv.setTextFilterEnabled(true);
-		
-		lv.setOnTouchListener(new ListView.OnTouchListener() {
-	        @Override
-	        public boolean onTouch(View v, MotionEvent event) {
-	            int action = event.getAction();
-	            switch (action) {
-	            case MotionEvent.ACTION_DOWN:
-	                // Disallow ScrollView to intercept touch events.
-	                v.getParent().requestDisallowInterceptTouchEvent(true);
-	                break;
-
-	            case MotionEvent.ACTION_UP:
-	                // Allow ScrollView to intercept touch events.
-	                v.getParent().requestDisallowInterceptTouchEvent(false);
-	                break;
-	            }
-
-	            // Handle ListView touch events.
-	            v.onTouchEvent(event);
-	            return true;
-	        }
-	    });
-		
-		
-		lv.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> adapter, View view,
-					int position, long id) {
-				// When clicked, show a toast with the TextView text
-				
-				SearchResult result = (SearchResult) adapter.getItemAtPosition(position);
-				Intent cardViewerIntent = new Intent( MyCollectionActivity.this, CardViewerActivity.class);
-				cardViewerIntent.putExtra("cardJson", result.toJson());
-				MyCollectionActivity.this.startActivity(cardViewerIntent);
-			}
-		});
-		
-		lv.setTextFilterEnabled(true);
-		
-	}
+	        
+	    }
 
 	public void onGoBackButtonDown(View v)
     {

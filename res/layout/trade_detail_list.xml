@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+	android:id="@+id/relativeLayout1" 
+	android:layout_height="fill_parent" 
+	android:layout_width="fill_parent"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/buyCardName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Buy Card Name"
+        android:textSize="20dp"
+        android:textColor="#CCCCCC"
+        android:layout_weight="2">
+    </TextView>
+    
+    <TextView
+        android:id="@+id/buyCardPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:textSize="20dp"
+        android:textColor="#CCCCCC"
+        android:layout_weight="1">
+    </TextView>
+    
+    <TextView
+        android:id="@+id/sellCardName"
+        android:layout_width="0dp"
+        android:textSize="20dp"
+        android:layout_height="wrap_content"
+        android:text="Sell Card Name"
+        android:textColor="#CCCCCC"
+        android:layout_weight="2">
+    </TextView>
+    
+    <TextView
+        android:id="@+id/sellCardPrice"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:textSize="20dp"
+        android:textColor="#CCCCCC"
+        android:layout_weight="1">
+    </TextView>
+</LinearLayout>
