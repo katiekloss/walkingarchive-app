@@ -8,6 +8,9 @@
         android:minSdkVersion="9"
         android:targetSdkVersion="17" />
 
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -42,6 +45,16 @@
         <activity
             android:name="org.walkingarchive.app.TradeHistoryActivity"
             android:label="@string/title_activity_trade_history" >
+        </activity>
+        <activity
+            android:name="org.walkingarchive.app.OCR"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_ocr"
+            android:theme="@style/FullscreenTheme" >
+        </activity>
+        <activity
+            android:name="org.walkingarchive.app.ImageActivity"
+            android:label="@string/title_activity_image" >
         </activity>
     </application>
 
