@@ -1,5 +1,7 @@
 package org.walkingarchive.app.api;
 
+import helpers.WebHelper;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,33 +23,15 @@ public class DownloadStringAsyncTask extends AsyncTask<String, Void, String>
 	protected String doInBackground(String... urls)
 	{
 		if(urls.length <= 0) return null;
-		URL url;
-		try {
-			url = new URL(urls[0]);
-		} catch (MalformedURLException e) {
-			// I don't understand how this is even possible, but ok.
-			return null;
-		}
-		
-		BufferedReader reader;
-		StringBuilder resultString;
 		try
 		{
-			reader = new BufferedReader(
-					new InputStreamReader(url.openConnection().getInputStream()));
-			resultString = new StringBuilder();
-			String buffer;
-			while((buffer = reader.readLine()) != null)
-				resultString.append(buffer);
-			reader.close();
+			return WebHelper.GET(urls[0]);
 		}
-		catch(IOException e)
+		catch (MalformedURLException e)
 		{
-			// TODO: This too
-			return null;
+			// TODO: Log it
 		}
-		
-		return resultString.toString();
+		return null;
 	}
 	
 	protected void onPostExecute(String string)

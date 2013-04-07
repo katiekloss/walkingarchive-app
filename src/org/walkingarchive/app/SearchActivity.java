@@ -8,10 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import org.walkingarchive.app.api.DownloadStringAsyncTask;
+import org.walkingarchive.app.api.WalkingArchiveApi;
 
 public class SearchActivity extends Activity {
 	@Override
@@ -50,31 +47,16 @@ public class SearchActivity extends Activity {
 			return;
 		}
 		
-		DownloadStringAsyncTask task = new DownloadStringAsyncTask(
-				new AsyncTaskCallback()
-				{
-					public void run(Object o)
-					{
-						searchResultsReturned((String) o);
-					}
-				});
+		AsyncTaskCallback resultsCallback = new AsyncTaskCallback()
+		{
+			public void run(Object o)
+			{
+				searchResultsReturned((String) o);
+			}
+		};
 		
-		// TODO: Refactor all of this into a WalkingArchiveApi class or something
-		URI apiUri = null;
-		try
-		{
-			 apiUri = new URI(
-					"http",
-					"dev.mtgwalkingarchive.com",
-					"/walkingarchive-qa/card/name/" + cardName.getText().toString(),
-					null);
-		}
-		catch(URISyntaxException e)
-		{
-			// f**k off.
-		}
-				
-		task.execute(apiUri.toString());
+		WalkingArchiveApi api = new WalkingArchiveApi();
+		api.getCardByNameAsync(cardName.getText().toString(), resultsCallback);
 	}
 	
 	public void searchResultsReturned(String resultString)
