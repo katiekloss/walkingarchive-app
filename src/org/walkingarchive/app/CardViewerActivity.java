@@ -45,19 +45,19 @@ public class CardViewerActivity extends Activity {
             JSONArray prices = json.getJSONArray("prices");
             if(prices.length() > 0)
             {
-	            Float min = Float.MAX_VALUE;
-	            Float max = Float.MIN_VALUE;
+	            Double min = Double.MAX_VALUE;
+	            Double max = Double.MIN_VALUE;
 	            
 	            for(int i = 0; i < prices.length(); i++)
 	            {
 	            	JSONObject price = prices.getJSONObject(i);
-	            	Float value = Float.valueOf((Integer) price.get("price"));
+	            	Double value = (Double) price.get("price");
 	            	if(value < min) min = value;
 	            	if(value > max) max = value;
 	            }
 	            
-	            min = Math.round(min * 100) / 100f;
-	            max = Math.round(max * 100) / 100f;
+	            min = Math.round(min * 100) / 100d;
+	            max = Math.round(max * 100) / 100d;
 	            
 	            // You have to compare floats like this because no two floats
 	            // are exactly alike (like snowflakes!)
