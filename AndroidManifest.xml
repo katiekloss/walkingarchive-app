@@ -31,22 +31,6 @@
         <activity android:name="org.walkingarchive.app.SearchResultsActivity" />
         <activity android:name="org.walkingarchive.app.CardViewerActivity" />
         <activity
-            android:name="org.walkingarchive.app.MyCollectionActivity"
-            android:label="@string/title_activity_my_collection" >
-        </activity>
-        <activity
-            android:name="org.walkingarchive.app.AccountInforActivity"
-            android:label="@string/title_activity_account_infor" >
-        </activity>
-        <activity
-            android:name="org.walkingarchive.app.ChangePwdActivity"
-            android:label="@string/title_activity_change_pwd" >
-        </activity>
-        <activity
-            android:name="org.walkingarchive.app.TradeHistoryActivity"
-            android:label="@string/title_activity_trade_history" >
-        </activity>
-        <activity
             android:name="org.walkingarchive.app.OCR"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_ocr"

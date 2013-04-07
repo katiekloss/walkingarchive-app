@@ -2,41 +2,31 @@
 package org.walkingarchive.app;
 
 import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.walkingarchive.app.ui.SearchResult;
 
-import android.app.ListActivity;
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.text.Editable;
-import android.text.TextWatcher;
 
-public class SearchResultsActivity extends ListActivity {	
-	
-	final Context context = this;
-	private ListView lv;
-	private ArrayAdapter<SearchResult> listAdapter ; 
-	private ArrayList<SearchResult> cardList = new ArrayList<SearchResult>();
-	private ArrayList<SearchResult> showcardList = new ArrayList<SearchResult>();
+public class SearchResultsActivity extends Activity {
+	ListView resultsListView;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_result);
-                
+
         String resultString = getIntent().getExtras().getString("resultString");
         JSONArray json;
-        try
+		try
 		{
 			json = new JSONArray(resultString);
 		}
@@ -45,97 +35,39 @@ public class SearchResultsActivity extends ListActivity {
 			// Hmm...
 			return;
 		}
-        
-        
+		
+        resultsListView = (ListView) findViewById(R.id.resultsListView);
+        ArrayList<String> listViewArray = new ArrayList<String>();
         for(int i = 0; i < json.length(); i++)
         {
         	JSONObject cardJson;
+        	String name;
         	try
         	{
 				cardJson = json.getJSONObject(i);
+				name = cardJson.getString("name");
 			}
         	catch (JSONException e)
         	{
         		// TODO: Log/whatever this
         		continue;
 			}
-        	cardList.add(new SearchResult(cardJson));
-        	showcardList.add(new SearchResult(cardJson));
+        	listViewArray.add(name);
         }
         
+        // Use some arbitrary TextView as a template
+        resultsListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listViewArray));
         
-        lv = getListView(); 
-        
-        
-           
-        listAdapter = new ArrayAdapter<SearchResult>(this, R.layout.list_text, R.id.listText, cardList);  
-          
-        
-        // Set the ArrayAdapter as the ListView's adapter.  
-       lv.setAdapter( listAdapter );  
-        
-        
-        
-        
-       final EditText cardName = (EditText) findViewById(R.id.cardName);
-       // cardName.setText("");
-        
-        cardName.addTextChangedListener(new TextWatcher() {
-        	 
-        	   public void afterTextChanged(Editable s) {
-        	   }
-        	 
-        	   public void beforeTextChanged(CharSequence s, int start, 
-        	     int count, int after) {
-        	   }
-        	 
-        	   public void onTextChanged(CharSequence s, int start, 
-        	     int before, int count) {
-        		   listAdapter.clear();
-        		   
-        		   
-        		   if(!cardName.getText().toString().equals("")){
-        			   String name = cardName.getText().toString();
-       	        	
-       	        	
-       	        	for(int i=0; i < showcardList.size(); i++){
-       	        		
-       	        		SearchResult sr = showcardList.get(i);
-       	        		String cardJson = sr.toJson();
-       	        		
-       	        		String cardNames;
-       	        		JSONObject json;
-       	        		
-       	        		try{
-       	                	json = new JSONObject(cardJson);
-       	                	cardNames = json.getString("name");
-       	                	
-       	        	    }
-       	        		catch(JSONException e){
-       	        	        	throw new RuntimeException(e);
-       	        	    }
-       	        	   
-       	        	   if(cardNames.contains(name)){
-       	        		   listAdapter.add(sr);
-       	        	   }  
-       	        	}
-        	     }else{
-        	    	 
-        	    	 for(int i =0; i< showcardList.size(); i++){
-        	    		 
-        	    		 listAdapter.add(showcardList.get(i));
-        	    		 
-        	    	 }
-        	    	 
-        	    	 
-        	   }
-        	   }
-        	  });
+        resultsListView.setOnItemClickListener(
+			new OnItemClickListener()
+			{
+				public void onItemClick(AdapterView<?> adapter, View view, int position, long id)
+				{
+					Intent cardViewerIntent = new Intent(SearchResultsActivity.this, CardViewerActivity.class);
+			    	SearchResultsActivity.this.startActivity(cardViewerIntent);
+				}
+			});
     }
-    
-	public void onGoBackButtonDown(View v)
-  {
-	Intent intent = new Intent(context, SearchActivity.class);
-						startActivity(intent);
-  }
+	
+	
 }

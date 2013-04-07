@@ -1,208 +1,148 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:fillViewport="true">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-  <RelativeLayout
-      android:layout_width="fill_parent"
-      android:layout_height="match_parent"
-      android:layout_gravity="top"
-      android:background="#000000"
-      android:gravity="top" >
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-      <!-- Header Starts -->
-      <!-- Header Ends -->
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-      <TextView
-          android:id="@+id/textView1"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignLeft="@+id/imageView1"
-          android:layout_alignParentTop="true"
-          android:layout_marginTop="14dp"
-          android:text="Card Informaiton"
-          android:textColor="#FFFFFF"
-          android:textAppearance="?android:attr/textAppearanceLarge" />
-      
-      <ImageView
-          android:id="@+id/imageView1"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true"
-          android:layout_below="@+id/textView1"
-          android:layout_marginLeft="25dp"
-          android:layout_marginTop="23dp"
-          android:maxHeight="200dp"
-          android:maxWidth="200dp"
-          android:src="@drawable/ic_launcher" />
+            <TextView
+                android:id="@+id/cardName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Abandon Hope"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
-      <LinearLayout
-          android:id="@+id/linearLayout1"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true"
-          android:layout_centerVertical="true"
-          android:orientation="vertical" >
-		 <View
-	    android:layout_width="fill_parent"
-	    android:layout_height="1dip"
-	    android:background="#ffffff" />
+        </TableRow>
 
-		 <TextView
-		     android:id="@+id/textView14"
-		     android:layout_width="wrap_content"
-		     android:layout_height="10dp"
-		     android:textColor="#FFFFFF"
-		     android:textAppearance="?android:attr/textAppearanceSmall" />
-		 
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-          <TextView
-              android:id="@+id/textView6"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="Value:"
-              android:textColor="#FFFFFF"
-              android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Type:"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-          <TextView
-              android:id="@+id/cardValue"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="$0.08 - $0.70"
-              android:textColor="#FFFFFF"
-              android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/cardType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sorcery"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-          <TextView
-              android:id="@+id/textView10"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="#FFFFFF"
-              android:textAppearance="?android:attr/textAppearanceSmall" />
+        </TableRow>
 
-      </LinearLayout>
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-      <TextView
-          android:id="@+id/textView8"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true"
-          android:layout_below="@+id/linearLayout1"
-          android:text="Rules:"
-          android:textColor="#FFFFFF"
-          android:textAppearance="?android:attr/textAppearanceMedium" />
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mana Cost:"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-      <TextView
-          android:id="@+id/textView9"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true"
-          android:layout_below="@+id/textView8"
-          android:textColor="#FFFFFF"
-          android:text="As an additional cost to play Abandon Hope, discard X cards.
-Look at target opponent&apos;s hand and choose X cards from it.
-That player discards those cards.
-As"
-          android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/cardMana"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="X 1 Black"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-      <TextView
-          android:id="@+id/textView11"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true"
-          android:layout_below="@+id/textView9"
-          android:textColor="#FFFFFF"
-          android:textAppearance="?android:attr/textAppearanceSmall" />
+        </TableRow>
 
-      <TextView
-          android:id="@+id/textView12"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true"
-          android:layout_below="@+id/textView11"
-          android:text="Flavor:"
-          android:textColor="#FFFFFF"
-          android:textAppearance="?android:attr/textAppearanceMedium" />
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-      <TextView
-          android:id="@+id/textView13"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true"
-          android:layout_below="@+id/textView12"
-          android:textColor="#FFFFFF"
-          android:text="As Gerrard&apos;s form vanished into the maw of trees,
-Hanna mouthed a silent plea, mourning a crushed dream."
-          android:textAppearance="?android:attr/textAppearanceSmall" />
-      
-      <Button
-          android:id="@+id/gobackButton"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_alignParentLeft="true"
-          android:layout_below="@+id/textView13"
-          android:textColor="#FFFFFF"
-          android:onClick="onGoBackButtonDown"
-          android:text="Go back" />
-      
-      <TextView
-          android:id="@+id/textView4"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignBottom="@+id/imageView1"
-          android:layout_centerHorizontal="true"
-          android:text="Type:"
-          android:textAppearance="?android:attr/textAppearanceMedium"
-          android:textColor="#FFFFFF" />
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Value:"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-      <TextView
-          android:id="@+id/cardMana"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_above="@+id/linearLayout1"
-          android:layout_alignLeft="@+id/textView5"
-          android:text="Small Text"
-          android:textAppearance="?android:attr/textAppearanceSmall"
-          android:textColor="#FFFFFF" />
+            <TextView
+                android:id="@+id/cardValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$0.08 - $0.70"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-      <TextView
-          android:id="@+id/cardType"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignLeft="@+id/textView4"
-          android:layout_below="@+id/textView4"
-          android:text="Sorcery"
-          android:textColor="#FFFFFF" />
+        </TableRow>
 
-      <TextView
-          android:id="@+id/cardName"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_alignLeft="@+id/textView4"
-          android:layout_alignTop="@+id/imageView1"
-          android:layout_marginLeft="20dp"
-          android:text="Abandon Hope"
-          android:textAppearance="?android:attr/textAppearanceMedium"
-          android:textColor="#FFFFFF" />
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-      <View
-          android:layout_width="fill_parent"
-          android:layout_height="1dip"
-          android:layout_alignBottom="@+id/textView1"
-          android:layout_alignParentLeft="true"
-          android:background="#ffffff" />
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rules:"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-      <TextView
-          android:id="@+id/textView5"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_above="@+id/cardMana"
-          android:layout_alignLeft="@+id/cardType"
-          android:text="Mana Cost:"
-          android:textAppearance="?android:attr/textAppearanceMedium"
-          android:textColor="#FFFFFF" />
+        </TableRow>
 
-  </RelativeLayout>
+        <TableRow
+            android:id="@+id/tableRow6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-</ScrollView>
+            <TextView
+                android:id="@+id/cardRules"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="As an additional cost to play Abandon Hope, discard X cards."
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Flavor text:"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/cardFlavorText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_span="2"
+                android:text="As Gerrard&apos;s form vanished into the maw of trees, Hanna mouthed a silent plea, mourning a crushed dream."
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </TableRow>
+
+    </TableLayout>
+
+</LinearLayout>

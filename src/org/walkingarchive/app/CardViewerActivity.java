@@ -1,7 +1,5 @@
 package org.walkingarchive.app;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.text.NumberFormat;
 
 import org.json.JSONArray;
@@ -9,9 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
 
 public class CardViewerActivity extends Activity {
@@ -39,13 +35,10 @@ public class CardViewerActivity extends Activity {
             // cardMana.setText(json.getString("mana"));
             // TODO: Actually assign it a value when this is supported by the API
             
-            TextView cardValue = (TextView) findViewById(R.id.cardValue);
-            // TODO: Same for this, however the API does it...
-            
-            TextView cardRules = (TextView) findViewById(R.id.textView9);
+            TextView cardRules = (TextView) findViewById(R.id.cardRules);
             cardRules.setText(json.getString("text"));
             
-            TextView cardFlavorText = (TextView) findViewById(R.id.textView13);
+            TextView cardFlavorText = (TextView) findViewById(R.id.cardFlavorText);
             cardFlavorText.setText(json.getString("flavortext"));
             
             TextView cardPrice = (TextView) findViewById(R.id.cardValue);
@@ -82,18 +75,5 @@ public class CardViewerActivity extends Activity {
         {
         	throw new RuntimeException(e);
         }
-        
-        //addListenerOnButton();
     }
-	
-	
-	
-	
-	
-	public void onGoBackButtonDown(View v)
-    {
-    	Intent searchIntent = new Intent(this, MainActivity.class);
-    	this.startActivity(searchIntent);
-    }
-	
 }

@@ -2,75 +2,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000"
     tools:context=".MainActivity" >
 
     <LinearLayout
         android:id="@+id/mainMenu_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Weclome to Walking Archive"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="#FFFFFF"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:typeface="sans" />
-
-		<View
-	    android:layout_width="fill_parent"
-	    android:layout_height="1dip"
-	    android:background="#000000" />
-		
         <Button
             android:id="@+id/button1"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:onClick="onSearchButtonDown"
-            android:textColor="#FFFFFF"
-            android:text="Search"
-             />
+            android:text="Search" />
 
 		<Button
-		    android:id="@+id/button2"
-		    android:layout_width="match_parent"
-		    android:layout_height="100dp"
-		    android:textColor="#FFFFFF"
-		    android:text="Trade" />
-		
+	        android:id="@+id/button2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Trade" />
 		<Button
-		    android:id="@+id/button3"
-		    android:layout_width="match_parent"
-		    android:layout_height="100dp"
-		    android:textColor="#FFFFFF"
-		    android:onClick="onMyCollectionButtonDown"
-		    android:text="My Collection" />
-
+	        android:id="@+id/button3"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="My Collection" />
 		<Button
-		    android:id="@+id/button4"
-		    android:layout_width="match_parent"
-		    android:layout_height="100dp"
-		    android:textColor="#FFFFFF"
-		    android:onClick="onTradeHistoryButtonDown"
-		    android:text="Trade History" />
-
+	        android:id="@+id/button4"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Trade History" />
 		<Button
-		    android:id="@+id/button5"
-		    android:layout_width="match_parent"
-		    android:layout_height="100dp"
-		    android:textColor="#FFFFFF"
-		    android:onClick="onAccountInforButtonDown"
-		    android:text="Account Information" />
-
+	        android:id="@+id/button5"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="Account Information" />
     </LinearLayout>
-
-    
-
 </RelativeLayout>
