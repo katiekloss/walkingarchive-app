@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.walkingarchive.app.ui.SearchResult;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -37,33 +38,33 @@ public class SearchResultsActivity extends Activity {
 		}
 		
         resultsListView = (ListView) findViewById(R.id.resultsListView);
-        ArrayList<String> listViewArray = new ArrayList<String>();
+        ArrayList<SearchResult> listViewArray = new ArrayList<SearchResult>();
         for(int i = 0; i < json.length(); i++)
         {
         	JSONObject cardJson;
-        	String name;
         	try
         	{
 				cardJson = json.getJSONObject(i);
-				name = cardJson.getString("name");
 			}
         	catch (JSONException e)
         	{
         		// TODO: Log/whatever this
         		continue;
 			}
-        	listViewArray.add(name);
+        	listViewArray.add(new SearchResult(cardJson));
         }
         
         // Use some arbitrary TextView as a template
-        resultsListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listViewArray));
+        resultsListView.setAdapter(new ArrayAdapter<SearchResult>(this, android.R.layout.simple_list_item_1, listViewArray));
         
         resultsListView.setOnItemClickListener(
 			new OnItemClickListener()
 			{
 				public void onItemClick(AdapterView<?> adapter, View view, int position, long id)
 				{
+					SearchResult result = (SearchResult) adapter.getItemAtPosition(position);
 					Intent cardViewerIntent = new Intent(SearchResultsActivity.this, CardViewerActivity.class);
+					cardViewerIntent.putExtra("cardJson", result.toJson());
 			    	SearchResultsActivity.this.startActivity(cardViewerIntent);
 				}
 			});
