@@ -2,7 +2,10 @@ package org.walkingarchive.app.api;
 
 import helpers.WebHelper;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URLEncoder;
+
 import org.walkingarchive.app.AsyncTaskCallback;
 
 import android.os.AsyncTask;
@@ -23,16 +26,24 @@ public class WalkingArchiveApi {
 		this("http://dev.mtgwalkingarchive.com/walkingarchive-qa");
 	}
 	
-	public String getAbsoluteUrl(String path)
+	public String getAbsoluteUrl(String path, String parameter)
 	{
-		return this.urlBase + path;
+		try
+		{
+			return urlBase + path + "/" + URLEncoder.encode(parameter, "UTF-8").replace("+", "%20");
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			// As usual, f**k you Java.
+			return null;
+		}
 	}
 	
 	public String getCardByName(String name)
 	{
 		try
 		{
-			return WebHelper.GET(getAbsoluteUrl("/card/name/" + name));
+			return WebHelper.GET(getAbsoluteUrl("/card/name", name));
 		}
 		catch(MalformedURLException e)
 		{
@@ -52,6 +63,33 @@ public class WalkingArchiveApi {
 			}
 		};
 
+		AsyncTask.execute(asyncRunner);
+	}
+	
+	public String search(String query)
+	{
+		try
+		{
+			return WebHelper.GET(getAbsoluteUrl("/card/search", query));
+		}
+		catch(MalformedURLException e)
+		{
+			// TODO: Log this
+			return null;
+		}
+	}
+	
+	public void searchAsync(final String query, final AsyncTaskCallback callback)
+	{
+		Runnable asyncRunner = new Runnable()
+		{
+			public void run()
+			{
+				String result = search(query);
+				if(callback != null) callback.run(result);
+			}
+		};
+		
 		AsyncTask.execute(asyncRunner);
 	}
 }
