@@ -3,10 +3,27 @@ package helpers;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
 
 public class WebHelper {
+	public static String sanitize(String fragment)
+	{
+		try
+		{
+			return URLEncoder.encode(fragment, "UTF-8").replace("+", "%20").replace("/", "%2F");
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			// TODO Auto-generated catch block
+			return null;
+		}
+	}
+	
 	public static String GET(String urlString) throws MalformedURLException
 	{
 		URL url;

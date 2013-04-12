@@ -2,10 +2,7 @@ package org.walkingarchive.app.api;
 
 import helpers.WebHelper;
 
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
-import java.net.URLEncoder;
-
 import org.walkingarchive.app.AsyncTaskCallback;
 
 import android.os.AsyncTask;
@@ -23,27 +20,19 @@ public class WalkingArchiveApi {
 		// TODO: I can't decide whether this should be hardcoded or not.
 		// I mean, obviously not, but you can't really configure an app
 		// the same way as editing a config file (where it should go).
-		this("http://dev.mtgwalkingarchive.com/walkingarchive-qa");
+		this("http://dev.mtgwalkingarchive.com:8080");
 	}
 	
-	public String getAbsoluteUrl(String path, String parameter)
+	public String getAbsoluteUrl(String path)
 	{
-		try
-		{
-			return urlBase + path + "/" + URLEncoder.encode(parameter, "UTF-8").replace("+", "%20");
-		}
-		catch (UnsupportedEncodingException e)
-		{
-			// As usual, f**k you Java.
-			return null;
-		}
+		return urlBase + path;
 	}
 	
 	public String getCardByName(String name)
 	{
 		try
 		{
-			return WebHelper.GET(getAbsoluteUrl("/card/name", name));
+			return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name)));
 		}
 		catch(MalformedURLException e)
 		{
@@ -70,7 +59,7 @@ public class WalkingArchiveApi {
 	{
 		try
 		{
-			return WebHelper.GET(getAbsoluteUrl("/card/search", query));
+			return WebHelper.GET(getAbsoluteUrl("/card/search/" + WebHelper.sanitize(query)));
 		}
 		catch(MalformedURLException e)
 		{
