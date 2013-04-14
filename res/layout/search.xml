@@ -24,11 +24,11 @@
         android:layout_height="wrap_content"
         android:text="TEXT SEARCH"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-	<View
-	    android:layout_width="fill_parent"
-	    android:layout_height="1dip"
-	    android:background="#000000" />
-	
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#000000" />
+    
     <EditText
         android:id="@+id/cardName"
         android:layout_width="match_parent"
