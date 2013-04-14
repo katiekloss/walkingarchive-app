@@ -1,5 +1,7 @@
 package org.walkingarchive.app;
 
+// ajk: Are we even using this class for anything?
+
 import org.walkingarchive.app.util.SystemUiHider;
 
 import android.annotation.TargetApi;
