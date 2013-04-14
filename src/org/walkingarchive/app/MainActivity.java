@@ -21,9 +21,18 @@ public class MainActivity extends Activity {
         return true;
     }
     
-    public void onSearchButtonDown(View v)
-    {
-    	Intent searchIntent = new Intent(this, SearchActivity.class);
-    	this.startActivity(searchIntent);
+    public void onSearchButtonDown(View v) {
+        Intent searchIntent = new Intent(this, SearchActivity.class);
+        this.startActivity(searchIntent);
+    }
+    
+    public void onTradeButtonDown(View v) {
+        Intent tradeIntent = new Intent(this, TradeActivity.class);
+        this.startActivity(tradeIntent);
+    }
+    
+    public void onTradeHistoryButtonDown(View v) {
+        Intent intent = new Intent(this, TradeHistoryActivity.class);
+        this.startActivity(intent);
     }
 }

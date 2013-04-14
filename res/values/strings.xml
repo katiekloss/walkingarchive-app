@@ -4,33 +4,40 @@
     <string name="app_name">Walking Archive</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+
     <string-array name="search_set_spinner_array">
         <item>Magic 2013</item>
     </string-array>
     <string-array name="search_type_spinner_array">
-        <item >Sorcery</item>
-        <item >Enchantment</item>
-        <item >Creature</item>
+        <item>Sorcery</item>
+        <item>Enchantment</item>
+        <item>Creature</item>
     </string-array>
     <string-array name="search_color_spinner_array">
-        <item >Red</item>
-        <item >White</item>
-        <item >Black</item>
-        <item >Green</item>
-        <item >Blue</item>
+        <item>Red</item>
+        <item>White</item>
+        <item>Black</item>
+        <item>Green</item>
+        <item>Blue</item>
     </string-array>
+
     <string name="search_set_spinner_prompt">Select Set...</string>
+
     <string-array name="search_result_result_names">
-        <item >Abandon Hope</item>
-        <item >Abandoned Outpost</item>
-        <item >Abattoir Ghoul</item>
-        <item >Abbey Gargoyles</item>
-        <item >Abbey Griffin</item>
+        <item>Abandon Hope</item>
+        <item>Abandoned Outpost</item>
+        <item>Abattoir Ghoul</item>
+        <item>Abbey Gargoyles</item>
+        <item>Abbey Griffin</item>
     </string-array>
+
     <string name="action_settings">Settings</string>
     <string name="title_activity_ocr">OCR</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_image">ImageActivity</string>
+    <string name="not_available">Not Available</string>
+    <string name="title_activity_trade">TradeActivity</string>
+    <string name="title_activity_trade_history">TradeHistoryActivity</string>
 
 </resources>

@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 public class CardViewerActivity extends Activity {
-	@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_viewer);
@@ -21,15 +21,15 @@ public class CardViewerActivity extends Activity {
         JSONObject json;
         try
         {
-        	json = new JSONObject(cardJson);
-        	TextView cardName = (TextView) findViewById(R.id.cardName);
+            json = new JSONObject(cardJson);
+            TextView cardName = (TextView) findViewById(R.id.cardName);
             cardName.setText(json.getString("name"));
             
             TextView cardType = (TextView) findViewById(R.id.cardType);
             if(json.getString("subtype").equals("null"))
-            	cardType.setText(json.getString("type"));
+                cardType.setText(json.getString("type"));
             else
-            	cardType.setText(json.getString("type") + " - " + json.getString("subtype"));
+                cardType.setText(json.getString("type") + " - " + json.getString("subtype"));
             
             TextView cardMana = (TextView) findViewById(R.id.cardMana);
             // cardMana.setText(json.getString("mana"));
@@ -45,35 +45,35 @@ public class CardViewerActivity extends Activity {
             JSONArray prices = json.getJSONArray("prices");
             if(prices.length() > 0)
             {
-	            Double min = Double.MAX_VALUE;
-	            Double max = Double.MIN_VALUE;
-	            
-	            for(int i = 0; i < prices.length(); i++)
-	            {
-	            	JSONObject price = prices.getJSONObject(i);
-	            	Double value = (Double) price.get("price");
-	            	if(value < min) min = value;
-	            	if(value > max) max = value;
-	            }
-	            
-	            min = Math.round(min * 100) / 100d;
-	            max = Math.round(max * 100) / 100d;
-	            
-	            // You have to compare floats like this because no two floats
-	            // are exactly alike (like snowflakes!)
-	            if(Math.abs(max - min) < 0.01)
-	            	cardPrice.setText(NumberFormat.getCurrencyInstance().format(min));
-	            else
-	            	cardPrice.setText(NumberFormat.getCurrencyInstance().format(min)
-	            			+ " - " + NumberFormat.getCurrencyInstance().format(max)
-	            			);
+                Double min = Double.MAX_VALUE;
+                Double max = Double.MIN_VALUE;
+                
+                for(int i = 0; i < prices.length(); i++)
+                {
+                    JSONObject price = prices.getJSONObject(i);
+                    Double value = (Double) price.get("price");
+                    if(value < min) min = value;
+                    if(value > max) max = value;
+                }
+                
+                min = Math.round(min * 100) / 100d;
+                max = Math.round(max * 100) / 100d;
+                
+                // You have to compare floats like this because no two floats
+                // are exactly alike (like snowflakes!)
+                if(Math.abs(max - min) < 0.01)
+                    cardPrice.setText(NumberFormat.getCurrencyInstance().format(min));
+                else
+                    cardPrice.setText(NumberFormat.getCurrencyInstance().format(min)
+                            + " - " + NumberFormat.getCurrencyInstance().format(max)
+                            );
             } else {
-            	cardPrice.setText("No price data available");
+                cardPrice.setText("No price data available");
             }
         }
         catch(JSONException e)
         {
-        	throw new RuntimeException(e);
+            throw new RuntimeException(e);
         }
     }
 }

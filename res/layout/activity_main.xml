@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:id="@+id/mainMenu_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
@@ -14,30 +14,36 @@
 
         <Button
             android:id="@+id/button1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onSearchButtonDown"
             android:text="Search" />
 
-		<Button
-	        android:id="@+id/button2"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Trade" />
-		<Button
-	        android:id="@+id/button3"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="My Collection" />
-		<Button
-	        android:id="@+id/button4"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Trade History" />
-		<Button
-	        android:id="@+id/button5"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="Account Information" />
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onTradeButtonDown"
+            android:text="Trade" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="My Collection" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onTradeHistoryButtonDown"
+            android:text="Trade History" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Account Information" />
+
     </LinearLayout>
 </RelativeLayout>
