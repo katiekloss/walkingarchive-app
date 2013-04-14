@@ -6,12 +6,17 @@ import android.graphics.Bitmap;
 
 public class OCR {
 
-	public OCR() { }
+	private String baseDir;
+	
+	public OCR(String baseDir) 
+	{
+		this.baseDir = baseDir;
+	}
 	
 	public String runOCR(Bitmap image)
 	{
 		TessBaseAPI tesseract = new TessBaseAPI();
-		tesseract.init("/mnt/sdcard/tesseract/", "eng");
+		tesseract.init(this.baseDir, "eng");
 		tesseract.setImage(image);
 		String text = tesseract.getUTF8Text();
 		tesseract.end();

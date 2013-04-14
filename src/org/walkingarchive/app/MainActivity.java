@@ -1,5 +1,11 @@
 package org.walkingarchive.app;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -12,6 +18,32 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        try
+        {
+        	new File(getFilesDir().toString() + "/tessdata").mkdir();
+        	File outputFile = new File(getFilesDir().toString() + "/tessdata/eng.traineddata");
+			FileOutputStream output = new FileOutputStream(outputFile);
+			InputStream input = getAssets().open("eng.traineddata");
+			byte[] buffer = new byte[1024];
+			int length;
+			while ((length = input.read(buffer)) > 0)
+			{
+				output.write(buffer, 0, length);
+			}
+			output.close();
+			input.close();
+		}
+        catch (FileNotFoundException e)
+        {	
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        catch (IOException e)
+        {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
     }
 
     @Override
