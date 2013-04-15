@@ -16,11 +16,10 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <ListView
-        android:id="@+id/resultsListView"
+        android:id="@+id/tradeResultsListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/textView1"
-        android:entries="@array/search_result_result_names" >
+        android:layout_below="@+id/textView1" >
 
     </ListView>
 
