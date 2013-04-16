@@ -81,4 +81,31 @@ public class WalkingArchiveApi {
 		
 		AsyncTask.execute(asyncRunner);
 	}
+	
+	public String getTradeHistory(Integer userId)
+	{
+		try
+		{
+			return WebHelper.GET(getAbsoluteUrl("/trade/user/" +userId.toString()));
+		}
+		catch (MalformedURLException e)
+		{
+			// TODO: handle exception
+			return null;
+		}
+	}
+	
+	public void getTradeHistoryAsync(final Integer userId, final AsyncTaskCallback callback)
+	{
+		Runnable asyncRunner = new Runnable()
+		{
+			public void run()
+			{
+				String result = getTradeHistory(userId);
+				if(callback != null) callback.run(result);
+			}
+		};
+		
+		AsyncTask.execute(asyncRunner);
+	}
 }

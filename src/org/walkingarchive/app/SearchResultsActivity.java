@@ -63,9 +63,17 @@ public class SearchResultsActivity extends Activity {
                 public void onItemClick(AdapterView<?> adapter, View view, int position, long id)
                 {
                     SearchResult result = (SearchResult) adapter.getItemAtPosition(position);
-                    Intent cardViewerIntent = new Intent(SearchResultsActivity.this, CardViewerActivity.class);
-                    cardViewerIntent.putExtra("cardJson", result.toJson());
-                    SearchResultsActivity.this.startActivity(cardViewerIntent);
+                    if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_FORWARD_RESULT) != 0)
+                    {
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("card", result.toJson());
+                        setResult(RESULT_OK, resultIntent);
+                        finish();
+                    } else {
+                        Intent cardViewerIntent = new Intent(SearchResultsActivity.this, CardViewerActivity.class);
+                        cardViewerIntent.putExtra("cardJson", result.toJson());
+                        SearchResultsActivity.this.startActivity(cardViewerIntent);
+                    }
                 }
             });
     }

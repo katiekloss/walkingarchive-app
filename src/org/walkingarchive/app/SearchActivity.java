@@ -42,6 +42,9 @@ public class SearchActivity extends Activity {
         {
             Intent searchResultsIntent = new Intent(this, SearchResultsActivity.class);
             searchResultsIntent.putExtra("resultString", resultString);
+            if(getIntent().hasExtra("forOtherActivity"))
+            	searchResultsIntent.setFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
+            
             this.startActivity(searchResultsIntent);
         } else {
             // I have no idea what to do here.
