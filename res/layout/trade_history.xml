@@ -10,16 +10,24 @@
 
     <TextView
         android:id="@+id/textView1"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Trade History"
+        android:text="Trades"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/addTradeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="+"
+        android:onClick="goToNewTrade" />
 
     <ListView
         android:id="@+id/tradeResultsListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/textView1" >
+        android:layout_below="@+id/addTradeButton" >
 
     </ListView>
 

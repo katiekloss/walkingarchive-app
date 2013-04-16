@@ -14,10 +14,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class TradeActivity extends Activity {
-	
-	public static final int FOR_GIVING_LIST = 1;
-	public static final int FOR_RECEIVING_LIST = 2;
-	
+    
+    public static final int FOR_GIVING_LIST = 1;
+    public static final int FOR_RECEIVING_LIST = 2;
+    
     ArrayList<String> crListItems=new ArrayList<String>();
     ArrayList<String> cgListItems=new ArrayList<String>();
     ArrayAdapter<String> crListAdapter;
@@ -57,35 +57,35 @@ public class TradeActivity extends Activity {
     
     public void addToGivingList (View v)
     {
-    	Intent intent = new Intent(this, SearchActivity.class);
+        Intent intent = new Intent(this, SearchActivity.class);
         intent.putExtra("forOtherActivity", true);
         this.startActivityForResult(intent, FOR_GIVING_LIST);
     }
 
     @Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
-    	JSONObject cardJson;
-    	try
-    	{
-			cardJson = new JSONObject(data.getStringExtra("card"));
-		
-	    	switch(requestCode)
-	    	{
-		    	case FOR_GIVING_LIST:
-		    		cgListItems.add(cardJson.getString("name"));
-		    		cgListAdapter.notifyDataSetChanged();
-		    		break;
-		    	case FOR_RECEIVING_LIST:
-		    		crListItems.add(cardJson.getString("name"));
-		    		crListAdapter.notifyDataSetChanged();
-		    		break;
-	    	}
-    	}
-    	catch (JSONException e)
-    	{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}    	
+        JSONObject cardJson;
+        try
+        {
+            cardJson = new JSONObject(data.getStringExtra("card"));
+        
+            switch(requestCode)
+            {
+                case FOR_GIVING_LIST:
+                    cgListItems.add(cardJson.getString("name"));
+                    cgListAdapter.notifyDataSetChanged();
+                    break;
+                case FOR_RECEIVING_LIST:
+                    crListItems.add(cardJson.getString("name"));
+                    crListAdapter.notifyDataSetChanged();
+                    break;
+            }
+        }
+        catch (JSONException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }        
     }
 }

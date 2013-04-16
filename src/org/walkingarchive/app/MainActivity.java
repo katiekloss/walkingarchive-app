@@ -27,11 +27,6 @@ public class MainActivity extends Activity {
     }
     
     public void onTradeButtonDown(View v) {
-        Intent tradeIntent = new Intent(this, TradeActivity.class);
-        this.startActivity(tradeIntent);
-    }
-    
-    public void onTradeHistoryButtonDown(View v) {
         Intent intent = new Intent(this, TradeHistoryActivity.class);
         this.startActivity(intent);
     }

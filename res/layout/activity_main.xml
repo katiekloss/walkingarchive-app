@@ -33,13 +33,6 @@
             android:text="My Collection" />
 
         <Button
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="onTradeHistoryButtonDown"
-            android:text="Trade History" />
-
-        <Button
             android:id="@+id/button5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
