@@ -21,22 +21,22 @@ public class ImageActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 	    Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-	    
+
 	    imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "card.jpg"));
 
         pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(pictureIntent, 1);
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == 1) 
+		if (requestCode == 1)
 		{
 			if (resultCode == RESULT_OK) // TODO: Handle RESULT_CANCELLED resultCode
 			{
 				Bitmap image = BitmapFactory.decodeFile(imageUri.toString());
 
-				
+
 				org.walkingarchive.app.ocr.OCR ocrRunner = new org.walkingarchive.app.ocr.OCR(getFilesDir().toString());
 				String ocrResults = ocrRunner.runOCR(image);
 
@@ -52,26 +52,26 @@ public class ImageActivity extends Activity {
 			} else {
 				// TODO: wtf happens here?
 			}
-		}        
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.image, menu);
-		return true;
-	}
-	
-	public void onSearchResults(String jsonResults)
-	{
-		if(jsonResults != null)
-		{
-			Intent searchResultsIntent = new Intent(this, SearchResultsActivity.class);
-			searchResultsIntent.putExtra("resultString", jsonResults);
-	    	this.startActivity(searchResultsIntent);
-		} else {
-			// TODO: log it
 		}
 	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.image, menu);
+        return true;
+    }
+
+    public void onSearchResults(String jsonResults)
+    {
+        if(jsonResults != null)
+        {
+            Intent searchResultsIntent = new Intent(this, SearchResultsActivity.class);
+            searchResultsIntent.putExtra("resultString", jsonResults);
+            this.startActivity(searchResultsIntent);
+        } else {
+            // TODO: log it
+        }
+    }
 
 }

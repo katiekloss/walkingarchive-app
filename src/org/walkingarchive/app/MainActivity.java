@@ -59,12 +59,12 @@ public class MainActivity extends Activity {
     }
     
     public void onTradeButtonDown(View v) {
-        Intent tradeIntent = new Intent(this, TradeActivity.class);
-        this.startActivity(tradeIntent);
+        Intent intent = new Intent(this, TradeHistoryActivity.class);
+        this.startActivity(intent);
     }
     
-    public void onTradeHistoryButtonDown(View v) {
-        Intent intent = new Intent(this, TradeHistoryActivity.class);
+    public void onCollectionButtonDown(View v) {
+        Intent intent = new Intent(this, DeckListActivity.class);
         this.startActivity(intent);
     }
 }

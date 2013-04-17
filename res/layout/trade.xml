@@ -24,7 +24,8 @@
                 android:id="@+id/cardsReceivingButton"
                 android:layout_width="0dp"
                 android:layout_weight=".10"
-                android:text="+" />
+                android:text="+"
+                android:onClick="addToReceivingList" />
             
             <TextView
                 android:id="@+id/cardsGiving"
@@ -38,7 +39,8 @@
                 android:id="@+id/cardsGivingButton"
                 android:layout_width="0dp"
                 android:layout_weight=".10"
-                android:text="+" />
+                android:text="+" 
+                android:onClick="addToGivingList"/>
         </TableRow>
 
         <TableRow

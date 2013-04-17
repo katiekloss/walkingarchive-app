@@ -42,50 +42,22 @@ public class SearchActivity extends Activity {
         {
             Intent searchResultsIntent = new Intent(this, SearchResultsActivity.class);
             searchResultsIntent.putExtra("resultString", resultString);
-            this.startActivity(searchResultsIntent);
+            if(getIntent().hasExtra("forwardResult"))
+            {
+                searchResultsIntent.putExtra("forwardResult", true);
+                this.startActivityForResult(searchResultsIntent, 0);
+            } else {
+                this.startActivity(searchResultsIntent);
+            }
         } else {
             // I have no idea what to do here.
         }
     }
 
-/*    
-    public void onOpenCamera(View v) {
-        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        
-        File file = new File(Environment.getExternalStorageDirectory(), "app-test.jpg");
-        
-        Uri outputFileUri = Uri.fromFile(file);
-        pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-        startActivityForResult(pictureIntent, 1);
-        
-        
-    }
-    
-       @Override
-       protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-           if (requestCode == 1){
-               Uri imageUri = null;
-               if (data!=null) {
-                   if (data.hasExtra("data")) {
-                       Bitmap thumbnail = data.getParcelableExtra("data");
-                   }
-               } else {
-                   //Call Tesseract on the Image here
-               }
-            }        
-        }
-    
-*/
-/*    public void onOpenCamera(View v) {
-        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        this.startActivityForResult(pictureIntent, 2);
-    }
-    */
-
-    
-    public void onOpenCamera(View v) {
-        Intent intent = new Intent(this, ImageActivity.class);
-        this.startActivity(intent);
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        setResult(resultCode, data);
+        finish();
     }
 }
 

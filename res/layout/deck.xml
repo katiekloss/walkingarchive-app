@@ -6,29 +6,29 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".TradeHistoryActivity" >
+    tools:context=".DeckActivity" >
 
     <TextView
-        android:id="@+id/tradeTitle"
+        android:id="@+id/deckNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Trades"
+        android:text="@string/not_available"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
-        android:id="@+id/addTradeButton"
+        android:id="@+id/addCardButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:text="+"
-        android:onClick="goToNewTrade" />
+        android:onClick="addCard" />
 
+    <!-- Cards in deck listed here -->
     <ListView
-        android:id="@+id/tradeResultsListView"
+        android:id="@+id/deckView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/addTradeButton" >
-
+        android:layout_below="@+id/addCardButton" >
     </ListView>
 
 </RelativeLayout>
