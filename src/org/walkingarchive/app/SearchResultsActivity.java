@@ -63,7 +63,7 @@ public class SearchResultsActivity extends Activity {
                 public void onItemClick(AdapterView<?> adapter, View view, int position, long id)
                 {
                     SearchResult result = (SearchResult) adapter.getItemAtPosition(position);
-                    if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_FORWARD_RESULT) != 0)
+                    if(getIntent().hasExtra("forwardResult"))
                     {
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra("card", result.toJson());

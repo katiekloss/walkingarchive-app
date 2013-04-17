@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -51,14 +50,14 @@ public class TradeActivity extends Activity {
     public void addToReceivingList (View v)
     {
         Intent intent = new Intent(this, SearchActivity.class);
-        intent.putExtra("forOtherActivity", true);
+        intent.putExtra("forwardResult", true);
         this.startActivityForResult(intent, FOR_RECEIVING_LIST);
     }
     
     public void addToGivingList (View v)
     {
         Intent intent = new Intent(this, SearchActivity.class);
-        intent.putExtra("forOtherActivity", true);
+        intent.putExtra("forwardResult", true);
         this.startActivityForResult(intent, FOR_GIVING_LIST);
     }
 
