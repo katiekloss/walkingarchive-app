@@ -39,5 +39,6 @@
     <string name="not_available">Not Available</string>
     <string name="title_activity_trade">TradeActivity</string>
     <string name="title_activity_trade_history">TradeHistoryActivity</string>
+    <string name="title_activity_deck">DeckListActivity</string>
 
 </resources>
