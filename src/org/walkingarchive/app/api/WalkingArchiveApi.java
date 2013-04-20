@@ -3,6 +3,11 @@ package org.walkingarchive.app.api;
 import helpers.WebHelper;
 
 import java.net.MalformedURLException;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.walkingarchive.app.AsyncTaskCallback;
 
 import android.os.AsyncTask;
@@ -107,5 +112,73 @@ public class WalkingArchiveApi {
 		};
 		
 		AsyncTask.execute(asyncRunner);
+	}
+	
+	public String updateTrade(Integer id, List<Integer> giving, List<Integer> receiving)
+	{	    
+	    JSONObject json = new JSONObject();
+	    try
+        {
+            json.put("id", id);
+            json.put("givingCards", new JSONArray(giving));
+            json.put("receivingCards", new JSONArray(receiving));
+        }
+	    catch (JSONException e) { }
+	    
+	    try
+        {
+            return WebHelper.POST(getAbsoluteUrl("/trade/update"), json.toString());
+        }
+	    catch (MalformedURLException e)
+        {
+            return null;
+        }
+	}
+	
+	public void updateTradeAsync(final Integer id, final List<Integer> giving, final List<Integer> receiving, final AsyncTaskCallback callback)
+	{
+	    Runnable asyncRunner = new Runnable()
+        {
+            public void run()
+            {
+                String response = updateTrade(id, giving, receiving);
+                if(callback != null) callback.run(response);
+            }
+        };
+        
+        AsyncTask.execute(asyncRunner);
+	}
+	
+	public String createTrade(int userId)
+	{
+	    JSONObject json = new JSONObject();
+	    try
+        {
+            json.put("user", userId);
+        }
+	    catch (JSONException e) { }
+	    
+	    try
+        {
+            return WebHelper.PUT(getAbsoluteUrl("/trade/add"), json.toString());
+        }
+	    catch (MalformedURLException e)
+        {
+            return null;
+        }
+	}
+	
+	public void createTradeAsync(final int userId, final AsyncTaskCallback callback)
+	{
+	    Runnable asyncRunner = new Runnable()
+        {
+            public void run()
+            {
+                String response = createTrade(userId);
+                if(callback != null) callback.run(response);
+            }
+        };
+        
+        AsyncTask.execute(asyncRunner);
 	}
 }
