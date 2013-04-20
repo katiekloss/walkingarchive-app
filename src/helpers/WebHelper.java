@@ -3,10 +3,10 @@ package helpers;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 
@@ -55,5 +55,69 @@ public class WebHelper {
 		}
 		
 		return resultString.toString();
+	}
+	
+	public static String POST(String urlString, String payload) throws MalformedURLException
+	{
+	    return POST(urlString, payload, false);
+	}
+	
+	public static String POST(String urlString, String payload, Boolean put) throws MalformedURLException
+	{
+	    URL url;
+        try
+        {
+            url = new URL(urlString);
+        }
+        catch (MalformedURLException e)
+        {
+            throw e;
+        }
+        
+        OutputStream writer = null;
+        BufferedReader reader = null;
+        StringBuilder resultString = new StringBuilder();
+        try
+        {
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            if(put)
+                conn.setRequestMethod("PUT");
+
+            writer = conn.getOutputStream();
+            if(payload != null)
+            {
+                writer.write(payload.getBytes());
+            }
+            conn.getResponseCode();
+            
+            reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            String buffer;
+            while((buffer = reader.readLine()) != null)
+                resultString.append(buffer);
+            
+        }
+        catch (IOException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        finally
+        {
+            // This is f**king asinine.
+            try
+            {
+                reader.close();
+                writer.close();
+            }
+            catch (Exception e) { }
+        }
+        
+        return resultString.toString();
+	}
+	
+	public static String PUT(String urlString, String payload) throws MalformedURLException
+	{
+	    return POST(urlString, payload, true);
 	}
 }
