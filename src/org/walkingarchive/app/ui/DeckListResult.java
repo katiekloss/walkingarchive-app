@@ -3,19 +3,19 @@ package org.walkingarchive.app.ui;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class TradeHistoryResult {
-    JSONObject tradeHistoryResult;
+public class DeckListResult {
+JSONObject deckListResult;
     
-    public TradeHistoryResult(JSONObject json)
+    public DeckListResult(JSONObject json)
     {
-        this.tradeHistoryResult = json;
+        this.deckListResult = json;
     }
     
     public String toString()
     {
         try
         {
-            return this.tradeHistoryResult.getString("date");
+            return this.deckListResult.getString("name");
         }
         catch(JSONException e)
         {
@@ -25,6 +25,6 @@ public class TradeHistoryResult {
     
     public String toJson()
     {
-        return this.tradeHistoryResult.toString();
+        return this.deckListResult.toString();
     }
 }

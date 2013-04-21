@@ -34,30 +34,14 @@
         <activity
             android:name="org.walkingarchive.app.OCR"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_ocr"
             android:theme="@style/FullscreenTheme" >
         </activity>
-        <activity
-            android:name="org.walkingarchive.app.ImageActivity"
-            android:label="@string/title_activity_image" >
-        </activity>
-        <activity
-            android:name="org.walkingarchive.app.TradeActivity"
-            android:label="@string/title_activity_trade"
-            android:screenOrientation="landscape" >
-        </activity>
-        <activity
-            android:name="org.walkingarchive.app.TradeHistoryActivity"
-            android:label="@string/title_activity_trade_history" >
-        </activity>
-        <activity
-            android:name="org.walkingarchive.app.DeckListActivity"
-            android:label="@string/title_activity_deck" >
-        </activity>
-        <activity
-            android:name="org.walkingarchive.app.DeckActivity"
-            android:label="@string/title_activity_deck" >
-        </activity>
+        <activity android:name="org.walkingarchive.app.ImageActivity" />
+        <activity android:name="org.walkingarchive.app.TradeActivity"
+            android:screenOrientation="landscape" />
+        <activity android:name="org.walkingarchive.app.TradeHistoryActivity" />
+        <activity android:name="org.walkingarchive.app.DeckListActivity" />
+        <activity android:name="org.walkingarchive.app.DeckActivity" />
     </application>
 
 </manifest>
