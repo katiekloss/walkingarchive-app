@@ -20,14 +20,6 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         copyAsset("eng.traineddata", "tessdata");
-        copyAsset("eng.cube.bigrams", "tessdata");
-        copyAsset("eng.cube.fold", "tessdata");
-        copyAsset("eng.cube.lm", "tessdata");
-        copyAsset("eng.cube.nn", "tessdata");
-        copyAsset("eng.cube.params", "tessdata");
-        copyAsset("eng.cube.size", "tessdata");
-        copyAsset("eng.cube.word-freq", "tessdata");
-        copyAsset("eng.tesseract_cube.nn", "tessdata");
     }
 
     public void copyAsset(String filename, String destDir)
