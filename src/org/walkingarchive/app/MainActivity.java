@@ -36,6 +36,9 @@ public class MainActivity extends Activity {
         {
             new File(getFilesDir().toString() + "/" + destDir).mkdir();
             File outputFile = new File(getFilesDir().toString() + "/" + destDir + "/" + filename);
+            if(outputFile.exists())
+                return;
+
             FileOutputStream output = new FileOutputStream(outputFile);
             InputStream input = getAssets().open(filename);
             byte[] buffer = new byte[1024];
