@@ -20,6 +20,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         copyAsset("eng.traineddata", "tessdata");
+        copyAsset("eng.user-words", "tessdata");
     }
 
     public void copyAsset(String filename, String destDir)
