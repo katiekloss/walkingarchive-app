@@ -7,35 +7,51 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import java.io.File;
-import org.walkingarchive.app.api.WalkingArchiveApi;
+import java.io.IOException;
 
+import org.walkingarchive.app.api.WalkingArchiveApi;
 
 public class ImageActivity extends Activity {
 
+    public static final int REQUEST_IMAGE_CAPTURE = 150;
+    
 	private Uri imageUri;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 	    Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	    File outputFile = new File(Environment.getExternalStorageDirectory(), "card.jpg");
 
-	    imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory(), "card.jpg"));
+        try
+        {
+            outputFile.createNewFile();
+        }
+        catch (IOException e) {
+            return;
+        }
+        
+	    imageUri = Uri.fromFile(outputFile);
 
         pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        startActivityForResult(pictureIntent, 1);
+        startActivityForResult(pictureIntent, REQUEST_IMAGE_CAPTURE);
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (requestCode == 1)
+		if (requestCode == REQUEST_IMAGE_CAPTURE)
 		{
 			if (resultCode == RESULT_OK) // TODO: Handle RESULT_CANCELLED resultCode
 			{
-				Bitmap image = BitmapFactory.decodeFile(imageUri.toString());
-
+			    Bitmap image = null;
+                try
+                {
+                    image = MediaStore.Images.Media.getBitmap(getApplicationContext().getContentResolver(), imageUri);
+                }
+                catch (IOException e) { }
 
 				org.walkingarchive.app.ocr.OCR ocrRunner = new org.walkingarchive.app.ocr.OCR(getFilesDir().toString());
 				String ocrResults = ocrRunner.runOCR(image);
