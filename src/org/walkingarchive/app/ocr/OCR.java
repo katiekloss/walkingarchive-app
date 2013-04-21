@@ -15,10 +15,9 @@ public class OCR {
 	
 	public String runOCR(Bitmap image)
 	{
-	    Bitmap tesseractImage = image.copy(Bitmap.Config.ARGB_8888, true);
 		TessBaseAPI tesseract = new TessBaseAPI();
 		tesseract.init(this.baseDir, "eng");
-		tesseract.setImage(tesseractImage);
+		tesseract.setImage(image);
 		String text = tesseract.getUTF8Text();
 		tesseract.end();
 		return text;
