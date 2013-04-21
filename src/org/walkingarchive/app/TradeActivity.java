@@ -1,6 +1,8 @@
 package org.walkingarchive.app;
 
 import java.util.ArrayList;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.walkingarchive.app.api.WalkingArchiveApi;
@@ -32,7 +34,10 @@ public class TradeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.trade);
         
-        createTrade();
+        if(getIntent().hasExtra("tradeJson"))
+            loadTrade();
+        else
+            createTrade();
         
         ListView crList = (ListView) findViewById(R.id.cardsReceivingList);
         ListView cgList = (ListView) findViewById(R.id.cardsGivingList);
@@ -128,6 +133,29 @@ public class TradeActivity extends Activity {
         
         // TODO: AAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         api.createTradeAsync(3, callback);
+    }
+    
+    private void loadTrade()
+    {
+        try
+        {
+            JSONObject json = new JSONObject(getIntent().getStringExtra("tradeJson"));
+            tradeId = json.getInt("id");
+            JSONArray givingCards = json.getJSONArray("givingCards");
+            for(int i = 0; i < givingCards.length(); i++)
+            {
+                TradeCard card = new TradeCard(givingCards.getJSONObject(i));
+                cgListItems.add(card);
+            }
+            
+            JSONArray receivingCards = json.getJSONArray("receivingCards");
+            for(int i = 0; i < receivingCards.length(); i++)
+            {
+                TradeCard card = new TradeCard(receivingCards.getJSONObject(i));
+                crListItems.add(card);
+            }
+        }
+        catch (JSONException e) { }
     }
     
     private void onCardListUpdate()

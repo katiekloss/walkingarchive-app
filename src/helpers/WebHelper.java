@@ -81,6 +81,7 @@ public class WebHelper {
         {
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);
+            conn.setRequestProperty("Content-Type", "application/json");
             if(put)
                 conn.setRequestMethod("PUT");
 
