@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.walkingarchive.app.api.WalkingArchiveApi;
 import org.walkingarchive.app.ui.DeckListResult;
+import org.walkingarchive.app.ui.TradeHistoryResult;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -34,7 +35,7 @@ public class DeckListActivity extends Activity {
                 {
                     public void onItemClick(AdapterView<?> adapter, View view, int position, long id)
                     {
-                        //DeckListActivity.this.onItemClick(adapter, view, position, id);
+                        DeckListActivity.this.onItemClick(adapter, view, position, id);
                     }
                 });
         
@@ -97,4 +98,11 @@ public class DeckListActivity extends Activity {
         });
     }
 
+    public void onItemClick(AdapterView<?> adapter, View view, int position, long id)
+    {
+            DeckListResult result = (DeckListResult) adapter.getItemAtPosition(position);
+            Intent deckIntent = new Intent(this, DeckActivity.class);
+            deckIntent.putExtra("deckJson", result.toJson());
+            startActivity(deckIntent);
+    }
 }

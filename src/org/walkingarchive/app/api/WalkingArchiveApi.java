@@ -195,30 +195,84 @@ public class WalkingArchiveApi {
     // DECK
     //**********************************************************************************************
     
-    public String getDecks(Integer userId)
-    {
-        try
-        {
+    public String getDecks(Integer userId) {
+        try {
             return WebHelper.GET(getAbsoluteUrl("/deck/user/" +userId.toString()));
         }
-        catch (MalformedURLException e)
-        {
+        catch (MalformedURLException e) {
             // TODO: handle exception
             return null;
         }
     }
     
-    public void getDecksAsync(final Integer userId, final AsyncTaskCallback callback)
-    {
-        Runnable asyncRunner = new Runnable()
-        {
-            public void run()
-            {
+    public void getDecksAsync(final int userId, final AsyncTaskCallback callback) {
+        Runnable asyncRunner = new Runnable() {
+            public void run() {
                 String result = getDecks(userId);
                 if(callback != null) callback.run(result);
             }
         };
         
         AsyncTask.execute(asyncRunner);
+    }
+
+    public String createDeck(int userId, String name) {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("user", userId);
+            json.put("name", name);
+        }
+        catch (JSONException e) {
+            //TODO - handle exception
+        }
+        
+        try {
+            return WebHelper.PUT(getAbsoluteUrl("/deck/add"), json.toString());
+        }
+        catch (MalformedURLException e) {
+            //log
+            return null;
+        }
+    }
+    
+    public void createDeckAsync(final Integer userId, final String name, final AsyncTaskCallback callback) {
+        Runnable asyncRunner = new Runnable()
+        {
+            public void run()
+            {
+                String response = createDeck(userId, name);
+                if(callback != null) callback.run(response);
+            }
+        };
+        
+        AsyncTask.execute(asyncRunner);
+    }
+
+    public void updateDeckAsync(final int deckId, final String name, final List<Integer> cards, final AsyncTaskCallback callback) {
+        Runnable asyncRunner = new Runnable() {
+            public void run() {
+                String response = updateDeck(deckId, name, cards);
+                if(callback != null) callback.run(response);
+            }
+        };
+        
+        AsyncTask.execute(asyncRunner);
+    }
+    
+    public String updateDeck(Integer id, String name, List<Integer> cards) {
+        JSONObject json = new JSONObject();
+        try {
+            json.put("id", id);
+            json.put("name", name);
+            json.put("collection", new JSONArray(cards));
+        }
+        catch (JSONException e) { }
+        
+        try {
+            return WebHelper.POST(getAbsoluteUrl("/deck/update"), json.toString());
+        }
+        catch (MalformedURLException e) {
+            return null;
+        }
     }
 }

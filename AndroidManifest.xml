@@ -28,8 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.walkingarchive.app.SearchActivity" />
-        <activity android:name="org.walkingarchive.app.SearchResultsActivity" />
+        <activity android:name="org.walkingarchive.app.SearchActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity android:name="org.walkingarchive.app.SearchResultsActivity"
+            android:configChanges="orientation|screenSize" />
         <activity android:name="org.walkingarchive.app.CardViewerActivity" />
         <activity
             android:name="org.walkingarchive.app.OCR"
@@ -39,9 +41,12 @@
         <activity android:name="org.walkingarchive.app.ImageActivity" />
         <activity android:name="org.walkingarchive.app.TradeActivity"
             android:screenOrientation="landscape" />
-        <activity android:name="org.walkingarchive.app.TradeHistoryActivity" />
-        <activity android:name="org.walkingarchive.app.DeckListActivity" />
-        <activity android:name="org.walkingarchive.app.DeckActivity" />
+        <activity android:name="org.walkingarchive.app.TradeHistoryActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity android:name="org.walkingarchive.app.DeckListActivity"
+            android:configChanges="orientation|screenSize" />
+        <activity android:name="org.walkingarchive.app.DeckActivity"
+            android:configChanges="orientation|screenSize" />
     </application>
 
 </manifest>
