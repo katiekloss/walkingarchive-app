@@ -54,6 +54,12 @@ public class SearchActivity extends Activity {
         }
     }
 
+    public void onOpenCamera(View v)
+    {
+        Intent intent = new Intent(this, ImageActivity.class);
+        this.startActivity(intent);
+    }
+    
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         setResult(resultCode, data);
