@@ -39,11 +39,11 @@ public class WalkingArchiveApi {
         // CARD & SEARCH
         //**********************************************************************************************
     
-    public String getCardByName(String name)
+    public String getCardByName(String name, int page)
     {
         try
         {
-            return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name)));
+            return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name) + "/" + page));
         }
         catch(MalformedURLException e)
         {
@@ -52,13 +52,13 @@ public class WalkingArchiveApi {
         }
     }
     
-    public void getCardByNameAsync(final String name, final AsyncTaskCallback callback)
+    public void getCardByNameAsync(final String name, final int page, final AsyncTaskCallback callback)
     {
         Runnable asyncRunner = new Runnable()
         {
             public void run()
             {
-                String result = getCardByName(name);
+                String result = getCardByName(name, page);
                 if(callback != null) callback.run(result);
             }
         };
@@ -67,13 +67,13 @@ public class WalkingArchiveApi {
     }
     
     public void getCardByNameManaTypeAsync(final String name, final String type, 
-            final String mana, final AsyncTaskCallback callback)
+            final String mana, final int page, final AsyncTaskCallback callback)
     {
         Runnable asyncRunner = new Runnable()
         {
             public void run()
             {
-                String result = getCardByNameManaType(name, type, mana);
+                String result = getCardByNameManaType(name, type, mana, page);
                 if(callback != null) callback.run(result);
             }
         };
@@ -81,7 +81,7 @@ public class WalkingArchiveApi {
         AsyncTask.execute(asyncRunner);
     }
     
-    public String getCardByNameManaType(String name, String type, String mana)
+    public String getCardByNameManaType(String name, String type, String mana, int page)
     {
         try
         {
@@ -90,13 +90,13 @@ public class WalkingArchiveApi {
                     return null;
                 }
                 else if (type.equalsIgnoreCase("any type")) {
-                    return WebHelper.GET(getAbsoluteUrl("/card/mana/" + WebHelper.sanitize(mana)));
+                    return WebHelper.GET(getAbsoluteUrl("/card/mana/" + WebHelper.sanitize(mana) + "/" + page));
                 }
                 else if (mana.equalsIgnoreCase("any color")) {
-                    return WebHelper.GET(getAbsoluteUrl("/card/type/" + WebHelper.sanitize(type)));
+                    return WebHelper.GET(getAbsoluteUrl("/card/type/" + WebHelper.sanitize(type) + "/" + page));
                 }
                 else if (!type.equalsIgnoreCase("any type") && !mana.equalsIgnoreCase("any color")) {
-                    return WebHelper.GET(getAbsoluteUrl("/card/type/" + WebHelper.sanitize(type) + "/mana/" + WebHelper.sanitize(mana))); 
+                    return WebHelper.GET(getAbsoluteUrl("/card/type/" + WebHelper.sanitize(type) + "/mana/" + WebHelper.sanitize(mana) + "/" + page)); 
                 }
                 else {
                     //unexpected, return null
@@ -109,13 +109,13 @@ public class WalkingArchiveApi {
                     return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name)));
                 }
                 else if (type.equalsIgnoreCase("any type")) {
-                    return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name) + "/mana/" + WebHelper.sanitize(mana)));
+                    return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name) + "/mana/" + WebHelper.sanitize(mana) + "/" + page));
                 }
                 else if (mana.equalsIgnoreCase("any color")) {
-                    return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name) + "/type/" + WebHelper.sanitize(type)));
+                    return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name) + "/type/" + WebHelper.sanitize(type) + "/" + page));
                 }
                 else if (!type.equalsIgnoreCase("any type") && !mana.equalsIgnoreCase("any color")) {
-                    return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name) + "/type/" + WebHelper.sanitize(type) + "/mana/" + WebHelper.sanitize(mana)));
+                    return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name) + "/type/" + WebHelper.sanitize(type) + "/mana/" + WebHelper.sanitize(mana) + "/" + page));
                 }
                 else {
                     //unexpected, return null
