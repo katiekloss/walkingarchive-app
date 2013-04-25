@@ -11,9 +11,11 @@ import org.json.JSONObject;
 import org.walkingarchive.app.AsyncTaskCallback;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class WalkingArchiveApi {
     String urlBase;
+    private final String TAG = "WalkingArchiveApi";
     
     public WalkingArchiveApi(String urlBase)
     {
@@ -62,6 +64,72 @@ public class WalkingArchiveApi {
         };
 
         AsyncTask.execute(asyncRunner);
+    }
+    
+    public void getCardByNameManaTypeAsync(final String name, final String type, 
+            final String mana, final AsyncTaskCallback callback)
+    {
+        Runnable asyncRunner = new Runnable()
+        {
+            public void run()
+            {
+                String result = getCardByNameManaType(name, type, mana);
+                if(callback != null) callback.run(result);
+            }
+        };
+
+        AsyncTask.execute(asyncRunner);
+    }
+    
+    public String getCardByNameManaType(String name, String type, String mana)
+    {
+        try
+        {
+            if (name.isEmpty() || name == null) {
+                if (type.equalsIgnoreCase("any type") && mana.equalsIgnoreCase("any color")) {
+                    return null;
+                }
+                else if (type.equalsIgnoreCase("any type")) {
+                    return WebHelper.GET(getAbsoluteUrl("/card/mana/" + WebHelper.sanitize(mana)));
+                }
+                else if (mana.equalsIgnoreCase("any color")) {
+                    return WebHelper.GET(getAbsoluteUrl("/card/type/" + WebHelper.sanitize(type)));
+                }
+                else if (!type.equalsIgnoreCase("any type") && !mana.equalsIgnoreCase("any color")) {
+                    return WebHelper.GET(getAbsoluteUrl("/card/type/" + WebHelper.sanitize(type) + "/mana/" + WebHelper.sanitize(mana))); 
+                }
+                else {
+                    //unexpected, return null
+                    Log.e(TAG, "Unexpected State");
+                    return null;
+                }
+            }
+            else {
+                if (type.equalsIgnoreCase("any type") && mana.equalsIgnoreCase("any color")) {
+                    return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name)));
+                }
+                else if (type.equalsIgnoreCase("any type")) {
+                    return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name) + "/mana/" + WebHelper.sanitize(mana)));
+                }
+                else if (mana.equalsIgnoreCase("any color")) {
+                    return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name) + "/type/" + WebHelper.sanitize(type)));
+                }
+                else if (!type.equalsIgnoreCase("any type") && !mana.equalsIgnoreCase("any color")) {
+                    return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name) + "/type/" + WebHelper.sanitize(type) + "/mana/" + WebHelper.sanitize(mana)));
+                }
+                else {
+                    //unexpected, return null
+                    Log.e(TAG, "Unexpected State");
+                    return null;
+                }
+            }
+        }
+        catch(MalformedURLException e)
+        {
+            Log.e(TAG, "Caught MalformedURLException attempting to get a card");
+            e.printStackTrace();
+            return null;
+        }
     }
     
     public String search(String query)

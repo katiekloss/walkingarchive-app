@@ -3,8 +3,11 @@ package org.walkingarchive.app;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
+
 import org.walkingarchive.app.api.WalkingArchiveApi;
 
 public class SearchActivity extends Activity {
@@ -18,11 +21,8 @@ public class SearchActivity extends Activity {
     public void onSearchButtonDown(View view)
     {
         EditText cardName = (EditText) findViewById(R.id.cardName);
-        if(cardName.getText().toString().equals(""))
-        {
-            // Should probably show a notification or something here.
-            return;
-        }
+        Spinner typeSpinner = (Spinner) findViewById(R.id.typeSpinner);
+        Spinner colorSpinner = (Spinner) findViewById(R.id.colorSpinner);
         
         AsyncTaskCallback resultsCallback = new AsyncTaskCallback()
         {
@@ -33,7 +33,10 @@ public class SearchActivity extends Activity {
         };
         
         WalkingArchiveApi api = new WalkingArchiveApi();
-        api.getCardByNameAsync(cardName.getText().toString(), resultsCallback);
+        api.getCardByNameManaTypeAsync(cardName.getText().toString(), 
+                typeSpinner.getSelectedItem().toString(), 
+                colorSpinner.getSelectedItem().toString(), 
+                resultsCallback);
     }
     
     public void searchResultsReturned(String resultString)
@@ -50,7 +53,7 @@ public class SearchActivity extends Activity {
                 this.startActivity(searchResultsIntent);
             }
         } else {
-            // I have no idea what to do here.
+            // Create an alert to let the user know no results were found
         }
     }
 
