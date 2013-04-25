@@ -37,6 +37,15 @@ public class DeckActivity extends Activity {
         
         if(getIntent().hasExtra("deckJson")) {
             loadDeck();
+
+            JSONObject json;
+            try {
+                json = new JSONObject(getIntent().getStringExtra("deckJson"));
+            EditText titleText = (EditText) findViewById(R.id.deckNameTitle);
+            titleText.setText(json.getString("name"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
         else {
             createDeck();

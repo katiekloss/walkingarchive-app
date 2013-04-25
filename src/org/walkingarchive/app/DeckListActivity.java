@@ -66,29 +66,23 @@ public class DeckListActivity extends Activity {
         this.startActivity(intent);
     }
     
-    public void onDecksReturned(final String json)
-    {
+    public void onDecksReturned(final String json) {
         final DeckListActivity thisRef = this;
         
         // This marshals the UI update code back to the UI thread,
         // because you're not allowed to update the UI from any other thread
-        marshaller.post(new Runnable()
-        {
-            public void run()
-            {
+        marshaller.post(new Runnable() {
+            public void run() {
                 ArrayList<DeckListResult> results = new ArrayList<DeckListResult>();
-                try
-                {
+                try {
                     JSONArray array = new JSONArray(json);
-                    for(int i = 0; i < array.length(); i++)
-                    {
+                    for(int i = 0; i < array.length(); i++) {
                         JSONObject deck = array.getJSONObject(i);
                         DeckListResult deckResult = new DeckListResult(deck);
                         results.add(deckResult);
                     }
                 }
-                catch (JSONException e)
-                {
+                catch (JSONException e) {
                     // hmm.
                 }
                 
@@ -98,8 +92,7 @@ public class DeckListActivity extends Activity {
         });
     }
 
-    public void onItemClick(AdapterView<?> adapter, View view, int position, long id)
-    {
+    public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
             DeckListResult result = (DeckListResult) adapter.getItemAtPosition(position);
             Intent deckIntent = new Intent(this, DeckActivity.class);
             deckIntent.putExtra("deckJson", result.toJson());
