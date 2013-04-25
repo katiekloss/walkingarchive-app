@@ -1,10 +1,12 @@
 package org.walkingarchive.app;
 
 import java.text.NumberFormat;
+import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -31,9 +33,8 @@ public class CardViewerActivity extends Activity {
             else
                 cardType.setText(json.getString("type") + " - " + json.getString("subtype"));
             
-            TextView cardMana = (TextView) findViewById(R.id.cardMana);
-            // cardMana.setText(json.getString("mana"));
-            // TODO: Actually assign it a value when this is supported by the API
+//            cardMana.setText();
+            setCardMana(json);
             
             TextView cardRules = (TextView) findViewById(R.id.cardRules);
             cardRules.setText(json.getString("text"));
@@ -75,5 +76,24 @@ public class CardViewerActivity extends Activity {
         {
             throw new RuntimeException(e);
         }
+    }
+
+    private void setCardMana(JSONObject json) {
+        TextView cardMana = (TextView) findViewById(R.id.cardMana);
+        try {
+            String manaText = "";
+            JSONObject mana = json.getJSONObject("mana");
+            for (int i = 0; i < mana.names().length(); i ++) {
+                if (manaText != "") {
+                    manaText += ", ";
+                }
+                manaText += mana.getInt(mana.names().getString(i)) + " " + mana.names().getString(i);
+            }
+            cardMana.setText(manaText);
+        } catch (JSONException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
     }
 }
