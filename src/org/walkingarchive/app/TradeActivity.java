@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.walkingarchive.app.api.WalkingArchiveApi;
+import org.walkingarchive.app.ui.DeckCard;
 import org.walkingarchive.app.ui.TradeCard;
 
 import android.app.Activity;
@@ -14,8 +15,10 @@ import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class TradeActivity extends Activity {
     
@@ -62,6 +65,26 @@ public class TradeActivity extends Activity {
         
         crListAdapter.registerDataSetObserver(tradeUpdater);
         cgListAdapter.registerDataSetObserver(tradeUpdater);
+        
+        cgList.setOnItemClickListener(
+                new OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+                        TradeCard result = (TradeCard) adapter.getItemAtPosition(position);
+                        Intent cardViewerIntent = new Intent(TradeActivity.this, CardViewerActivity.class);
+                        cardViewerIntent.putExtra("cardJson", result.toJson());
+                        TradeActivity.this.startActivity(cardViewerIntent);
+                    }
+                });
+        
+        crList.setOnItemClickListener(
+                new OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+                        TradeCard result = (TradeCard) adapter.getItemAtPosition(position);
+                        Intent cardViewerIntent = new Intent(TradeActivity.this, CardViewerActivity.class);
+                        cardViewerIntent.putExtra("cardJson", result.toJson());
+                        TradeActivity.this.startActivity(cardViewerIntent);
+                    }
+                });
     }
 
     @Override

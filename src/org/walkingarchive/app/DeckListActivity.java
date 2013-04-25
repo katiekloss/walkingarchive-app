@@ -7,7 +7,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.walkingarchive.app.api.WalkingArchiveApi;
 import org.walkingarchive.app.ui.DeckListResult;
-import org.walkingarchive.app.ui.TradeHistoryResult;
 
 import android.app.Activity;
 import android.content.Intent;

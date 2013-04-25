@@ -19,6 +19,8 @@ import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -41,8 +43,8 @@ public class DeckActivity extends Activity {
             JSONObject json;
             try {
                 json = new JSONObject(getIntent().getStringExtra("deckJson"));
-            EditText titleText = (EditText) findViewById(R.id.deckNameTitle);
-            titleText.setText(json.getString("name"));
+                EditText titleText = (EditText) findViewById(R.id.deckNameTitle);
+                titleText.setText(json.getString("name"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -65,6 +67,16 @@ public class DeckActivity extends Activity {
         };
         
         cardListAdapter.registerDataSetObserver(deckUpdater);
+        
+        cardList.setOnItemClickListener(
+                new OnItemClickListener() {
+                    public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
+                        DeckCard result = (DeckCard) adapter.getItemAtPosition(position);
+                        Intent cardViewerIntent = new Intent(DeckActivity.this, CardViewerActivity.class);
+                        cardViewerIntent.putExtra("cardJson", result.toJson());
+                        DeckActivity.this.startActivity(cardViewerIntent);
+                    }
+                });
     }
 
     private void createDeck() {
@@ -145,19 +157,20 @@ public class DeckActivity extends Activity {
     private void loadDeck() {
         try {
             JSONObject json = new JSONObject(getIntent().getStringExtra("deckJson"));
-            Log.i(TAG, "Json object " + json.toString());
             deckId = json.getInt("id");
             JSONArray cards = json.getJSONArray("collection");
-            Log.i(TAG, "Collection: " + cards);
             for (int i = 0; i < cards.length(); i++) {
-                DeckCard card = new DeckCard(cards.getJSONObject(i));
-                cardListItems.add(card);
-                Log.i(TAG, "Items in card list: " + cardListItems.get(i));
+                if (cards.get(i) != null && cards.get(i) != "null") {
+                    DeckCard card = new DeckCard(cards.getJSONObject(i));
+                    cardListItems.add(card);
+                }
             }
 
         }
         catch (JSONException e) {
             //TODO - handle exception
+            Log.e(TAG, "Error parsing json in loading deck");
+            e.printStackTrace();
         }
     }
 
