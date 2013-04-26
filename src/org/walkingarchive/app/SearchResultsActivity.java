@@ -91,7 +91,7 @@ public class SearchResultsActivity extends Activity {
     
     private void checkResults(JSONArray json) {
         //if there are less results than the max returned by the api, hide the load button
-        if (json.length() < 20) {
+        if (json.length() < 20 || !getIntent().hasExtra("searchParameters")) {
             Button loadButton = (Button) findViewById(R.id.loadMoreResults);
             loadButton.setVisibility(View.GONE);
         }
@@ -133,15 +133,12 @@ public class SearchResultsActivity extends Activity {
     }
     
     private void insertIntoList(JSONArray json) {
-        for(int i = 0; i < json.length(); i++)
-        {
+        for(int i = 0; i < json.length(); i++){
             JSONObject cardJson;
-            try
-            {
+            try {
                 cardJson = json.getJSONObject(i);
             }
-            catch (JSONException e)
-            {
+            catch (JSONException e) {
                 // TODO: Log/whatever this
                 continue;
             }
