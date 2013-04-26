@@ -106,7 +106,7 @@ public class WalkingArchiveApi {
             }
             else {
                 if (type.equalsIgnoreCase("any type") && mana.equalsIgnoreCase("any color")) {
-                    return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name)));
+                    return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name) + "/" + page));
                 }
                 else if (type.equalsIgnoreCase("any type")) {
                     return WebHelper.GET(getAbsoluteUrl("/card/name/" + WebHelper.sanitize(name) + "/mana/" + WebHelper.sanitize(mana) + "/" + page));

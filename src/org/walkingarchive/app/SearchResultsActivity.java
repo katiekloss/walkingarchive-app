@@ -92,18 +92,23 @@ public class SearchResultsActivity extends Activity {
     private void checkResults(JSONArray json) {
         //if there are less results than the max returned by the api, hide the load button
         if (json.length() < 20 || !getIntent().hasExtra("searchParameters")) {
-            Button loadButton = (Button) findViewById(R.id.loadMoreResults);
-            loadButton.setVisibility(View.GONE);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Button loadButton = (Button) findViewById(R.id.loadMoreResults);
+                    loadButton.setVisibility(View.GONE);
+                }
+            });
         }
     }
     
     public void loadNextPage(View v) {
+        Log.i(TAG, "Next page " + nextPage);
         AsyncTaskCallback resultsCallback = new AsyncTaskCallback()
         {
             public void run(Object o)
             {
                 try {
-                    Log.i(TAG, "returned from api call, checking results and adding to list");
                     checkResults(new JSONArray((String) o));
                     insertIntoList(new JSONArray((String) o));
                 } catch (JSONException e) {
@@ -129,7 +134,7 @@ public class SearchResultsActivity extends Activity {
                 e.printStackTrace();
             }
         }
-        nextPage ++;
+        nextPage++;
     }
     
     private void insertIntoList(JSONArray json) {
