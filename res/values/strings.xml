@@ -9,17 +9,22 @@
         <item>Magic 2013</item>
     </string-array>
     <string-array name="search_type_spinner_array">
-        <item>Any Type</item><item>Sorcery</item>
-        <item>Enchantment</item>
-        <item>Creature</item>
+        <item>Any Type</item>
+        <item>Artifact</item><item>Creature</item><item>Enchantment</item>
+        
+        <item >Instant</item><item>Land</item><item>Planeswalker</item><item>Sorcery</item>
+        
+        
+        
         
     </string-array>
     <string-array name="search_color_spinner_array">
-        <item >Any Color</item><item>Red</item>
+        <item >Any Color</item><item>Colorless</item><item>Red</item>
         <item>White</item>
         <item>Black</item>
         <item>Green</item>
         <item>Blue</item>
+        
         
     </string-array>
 

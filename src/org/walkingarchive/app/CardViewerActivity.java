@@ -1,15 +1,14 @@
 package org.walkingarchive.app;
 
 import java.text.NumberFormat;
-import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 public class CardViewerActivity extends Activity {
@@ -82,12 +81,18 @@ public class CardViewerActivity extends Activity {
         TextView cardMana = (TextView) findViewById(R.id.cardMana);
         try {
             String manaText = "";
+            Log.i("CArdViewerActivity", json.toString());
             JSONObject mana = json.getJSONObject("mana");
-            for (int i = 0; i < mana.names().length(); i ++) {
-                if (manaText != "") {
-                    manaText += ", ";
+            if (mana != null && mana.length() > 0) {
+                for (int i = 0; i < mana.names().length(); i ++) {
+                    if (manaText != "") {
+                        manaText += ", ";
+                    }
+                    manaText += mana.getInt(mana.names().getString(i)) + " " + mana.names().getString(i);
                 }
-                manaText += mana.getInt(mana.names().getString(i)) + " " + mana.names().getString(i);
+            }
+            else {
+                manaText = "none";
             }
             cardMana.setText(manaText);
         } catch (JSONException e) {
