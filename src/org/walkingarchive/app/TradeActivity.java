@@ -29,8 +29,8 @@ public class TradeActivity extends Activity {
     
     ArrayList<TradeCard> crListItems=new ArrayList<TradeCard>();
     ArrayList<TradeCard> cgListItems=new ArrayList<TradeCard>();
-    ArrayAdapter<TradeCard> crListAdapter;
-    ArrayAdapter<TradeCard> cgListAdapter;
+    TradeCardAdapter crListAdapter;
+    TradeCardAdapter cgListAdapter;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +45,10 @@ public class TradeActivity extends Activity {
         ListView crList = (ListView) findViewById(R.id.cardsReceivingList);
         ListView cgList = (ListView) findViewById(R.id.cardsGivingList);
 
-        crListAdapter = new ArrayAdapter<TradeCard>(this,
-                android.R.layout.simple_list_item_1,
-                crListItems);
+        crListAdapter = new TradeCardAdapter(this, crListItems);
         crList.setAdapter(crListAdapter);
         
-        cgListAdapter = new ArrayAdapter<TradeCard>(this,
-                android.R.layout.simple_list_item_1,
-                cgListItems);
+        cgListAdapter = new TradeCardAdapter(this, cgListItems);
         cgList.setAdapter(cgListAdapter);
         
         DataSetObserver tradeUpdater = new DataSetObserver()
