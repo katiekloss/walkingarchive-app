@@ -16,9 +16,17 @@
                 android:id="@+id/cardsReceiving"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".40"
-                android:text="Cards Receiving"
+                android:layout_weight=".25"
+                android:text="Receiving"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+            <TextView
+                android:id="@+id/cardsReceivingValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".15"
+                android:text="$0.00"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
             
             <Button
                 android:id="@+id/cardsReceivingButton"
@@ -31,9 +39,17 @@
                 android:id="@+id/cardsGiving"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight=".40"
-                android:text="Cards Giving"
+                android:layout_weight=".25"
+                android:text="Giving"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+            <TextView
+                android:id="@+id/cardsGivingValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".15"
+                android:text="$0.00"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
             
             <Button
                 android:id="@+id/cardsGivingButton"

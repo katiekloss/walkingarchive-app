@@ -1,12 +1,12 @@
 package org.walkingarchive.app;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.walkingarchive.app.api.WalkingArchiveApi;
-import org.walkingarchive.app.ui.DeckCard;
 import org.walkingarchive.app.ui.TradeCard;
 
 import android.app.Activity;
@@ -16,9 +16,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class TradeActivity extends Activity {
     
@@ -44,6 +44,12 @@ public class TradeActivity extends Activity {
         
         ListView crList = (ListView) findViewById(R.id.cardsReceivingList);
         ListView cgList = (ListView) findViewById(R.id.cardsGivingList);
+
+        TextView cgValue = (TextView) findViewById(R.id.cardsGivingValue);
+        TextView crValue = (TextView) findViewById(R.id.cardsReceivingValue);
+        
+        cgValue.setText(getTotal(cgListItems));
+        crValue.setText(getTotal(crListItems));
 
         crListAdapter = new TradeCardAdapter(this, crListItems);
         crList.setAdapter(crListAdapter);
@@ -107,6 +113,8 @@ public class TradeActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
+        TextView cgValue = (TextView) findViewById(R.id.cardsGivingValue);
+        TextView crValue = (TextView) findViewById(R.id.cardsReceivingValue);
         JSONObject cardJson;
         try
         {
@@ -117,10 +125,16 @@ public class TradeActivity extends Activity {
                 case FOR_GIVING_LIST:
                     cgListItems.add(new TradeCard(cardJson));
                     cgListAdapter.notifyDataSetChanged();
+                    
+                    cgValue.setText(getTotal(cgListItems));
+                    crValue.setText(getTotal(crListItems));
                     break;
                 case FOR_RECEIVING_LIST:
                     crListItems.add(new TradeCard(cardJson));
                     crListAdapter.notifyDataSetChanged();
+                    
+                    cgValue.setText(getTotal(cgListItems));
+                    crValue.setText(getTotal(crListItems));
                     break;
             }
         }
@@ -216,5 +230,34 @@ public class TradeActivity extends Activity {
             api.updateTradeAsync(tradeId, giving, receiving, callback);
         }
         catch (JSONException e) { }
+    }
+    
+    private String getTotal(ArrayList<TradeCard> cards) {
+        Double result = 0.0;
+        for (TradeCard c : cards) {
+            try {
+                JSONArray prices = new JSONObject(c.toJson()).getJSONArray("prices");
+                if(prices.length() > 0) {
+                    Double min = Double.MAX_VALUE;
+                    Double max = Double.MIN_VALUE;
+                    
+                    for(int i = 0; i < prices.length(); i++) {
+                        JSONObject price = prices.getJSONObject(i);
+                        Double value = (Double) price.get("price");
+                        if(value < min) min = value;
+                        if(value > max) max = value;
+                    }
+                    
+                    Double average = (min + max)/2;
+                    average = Math.round(average * 100) / 100d;
+                    
+                    result += average;
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return NumberFormat.getCurrencyInstance().format(result);
     }
 }
