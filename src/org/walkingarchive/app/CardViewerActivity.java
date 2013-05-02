@@ -8,10 +8,18 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
+/**
+ * This renders the card viewer interface for a given chunk of Card-like JSON
+ */
 public class CardViewerActivity extends Activity {
+    /**
+     * Renders the interface
+     * <p>
+     * The JSON of the card we're viewing must be passed as a string Extra named "cardJson".
+     * </p>
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +40,6 @@ public class CardViewerActivity extends Activity {
             else
                 cardType.setText(json.getString("type") + " - " + json.getString("subtype"));
             
-//            cardMana.setText();
             setCardMana(json);
             
             TextView cardRules = (TextView) findViewById(R.id.cardRules);
@@ -77,11 +84,15 @@ public class CardViewerActivity extends Activity {
         }
     }
 
+    /**
+     * Converts a database-serialized mana cost to a String one
+     * @param json  The JSON of the card this Activity is viewing
+     */
     private void setCardMana(JSONObject json) {
         TextView cardMana = (TextView) findViewById(R.id.cardMana);
         try {
             String manaText = "";
-            Log.i("CArdViewerActivity", json.toString());
+
             JSONObject mana = json.getJSONObject("mana");
             if (mana != null && mana.length() > 0) {
                 for (int i = 0; i < mana.names().length(); i ++) {
@@ -96,7 +107,6 @@ public class CardViewerActivity extends Activity {
             }
             cardMana.setText(manaText);
         } catch (JSONException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         

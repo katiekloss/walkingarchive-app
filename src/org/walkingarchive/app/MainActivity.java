@@ -13,8 +13,16 @@ import android.view.Menu;
 import android.view.View;
 import android.content.Intent;
 
+/**
+ * Renders the main menu and runs app startup code
+ * @author Katie
+ *
+ */
 public class MainActivity extends Activity {
 
+    /**
+     * Displays the menu items and copies Tesseract assets into application storage
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +31,11 @@ public class MainActivity extends Activity {
         copyAsset("eng.user-words", "tessdata");
     }
 
+    /**
+     * Copies a file from the APK "assets" folder into the app-specific storage location
+     * @param filename  Name of the file to copy, relative to "assets/"
+     * @param destDir   The directory to copy into, relative to the top-level app storage folder
+     */
     public void copyAsset(String filename, String destDir)
     {
         try
@@ -55,16 +68,28 @@ public class MainActivity extends Activity {
         return true;
     }
     
+    /**
+     * Runs the Search activity when the Search button is clicked
+     * @param v  The Search button
+     */
     public void onSearchButtonDown(View v) {
         Intent searchIntent = new Intent(this, SearchActivity.class);
         this.startActivity(searchIntent);
     }
     
+    /**
+     * Runs the Trade activity when the Trade button is clicked
+     * @param v  The Trade button
+     */
     public void onTradeButtonDown(View v) {
         Intent intent = new Intent(this, TradeHistoryActivity.class);
         this.startActivity(intent);
     }
     
+    /**
+     * Runs the DeckList activity when the Decks button is clicked
+     * @param v  The button
+     */
     public void onCollectionButtonDown(View v) {
         Intent intent = new Intent(this, DeckListActivity.class);
         this.startActivity(intent);

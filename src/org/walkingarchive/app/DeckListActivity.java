@@ -19,10 +19,16 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+/**
+ * Displays a list of Decks that the user owns.
+ */
 public class DeckListActivity extends Activity {
 
     Handler marshaller = new Handler();
 
+    /**
+     * Render the interface and start the async call to retrieve the Deck list
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +53,6 @@ public class DeckListActivity extends Activity {
         };
         
         WalkingArchiveApi api = new WalkingArchiveApi();
-        // TODO: Make this not ghetto
         api.getDecksAsync(3, callback);
         
         // TODO: Show a busy screen here
@@ -60,11 +65,19 @@ public class DeckListActivity extends Activity {
         return true;
     }
     
+    /**
+     * Launch the Deck activity to create a new Deck
+     * @param v  The button that was clicked which triggered this event
+     */
     public void goToNewDeck (View v) {
         Intent intent = new Intent(this, DeckActivity.class);
         this.startActivity(intent);
     }
     
+    /**
+     * Callback for when the async call to retrieve the Deck list completes
+     * @param json  The Deck list in JSON format
+     */
     public void onDecksReturned(final String json) {
         final DeckListActivity thisRef = this;
         
@@ -91,6 +104,13 @@ public class DeckListActivity extends Activity {
         });
     }
 
+    /**
+     * Launches the Deck viewer when a Deck in the list is clicked.
+     * @param adapter   The ListView Adapter containing the clicked item
+     * @param view      The ListView
+     * @param position  The zero-indexed position of the clicked item in the Adapter
+     * @param id        Not sure what this is.
+     */
     public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
             DeckListResult result = (DeckListResult) adapter.getItemAtPosition(position);
             Intent deckIntent = new Intent(this, DeckActivity.class);

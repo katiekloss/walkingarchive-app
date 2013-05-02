@@ -25,6 +25,9 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
+/**
+ * Renders a list of cards in a given Deck and allows the user to add new ones
+ */
 public class DeckActivity extends Activity {
     private int deckId = -1;
     private final String TAG = "org.walkingarchive.app.DeckActivity";
@@ -32,6 +35,12 @@ public class DeckActivity extends Activity {
     private ArrayAdapter<DeckCard> cardListAdapter;
     public static final int FOR_CARD_LIST = 3;
 
+    /**
+     * Render the interface.
+     * <p>
+     * The deck's JSON must be passed as a string Extra named "deckJson"
+     * </p>
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +88,9 @@ public class DeckActivity extends Activity {
                 });
     }
 
+    /**
+     * Starts an asynchronous call to create a new Deck on the server
+     */
     private void createDeck() {
         deckId = 0;
         final WalkingArchiveApi api = new WalkingArchiveApi();
@@ -93,7 +105,7 @@ public class DeckActivity extends Activity {
                     deckId = json.getInt("id");
                     onCardListUpdate();
                 }
-                catch (JSONException e) { } // like i give a f**k.
+                catch (JSONException e) { }
             }
         };
         
@@ -120,6 +132,12 @@ public class DeckActivity extends Activity {
         
     }
 
+    /**
+     * Starts an asynchronous API call to add a Card to this Deck
+     * <p>
+     * This will create the deck if needed, or wait for an existing deck-creation call to return.
+     * </p>
+     */
     protected void onCardListUpdate() {
         // New deck and update already posted
         if (deckId == 0) return;
@@ -154,6 +172,9 @@ public class DeckActivity extends Activity {
         }
     }
 
+    /**
+     * Create the initial list of Cards from a given chunk of JSON for the Deck.
+     */
     private void loadDeck() {
         try {
             JSONObject json = new JSONObject(getIntent().getStringExtra("deckJson"));
@@ -181,6 +202,10 @@ public class DeckActivity extends Activity {
         return true;
     }
     
+    /**
+     * This launches the Card Search interface to add a new Card to the deck
+     * @param v
+     */
     public void addCard (View v) {
         //go to search page
         Intent intent = new Intent(this, SearchActivity.class);
@@ -188,6 +213,12 @@ public class DeckActivity extends Activity {
         this.startActivityForResult(intent, FOR_CARD_LIST);
     }
     
+    /**
+     * Callback for when a child Activity finishes.
+     * <p>
+     * This is guaranteed to be the Search activity returning a card to add to the Deck
+     * </p>
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         JSONObject cardJson;

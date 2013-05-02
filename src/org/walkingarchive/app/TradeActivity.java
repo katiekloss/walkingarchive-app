@@ -20,6 +20,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
 
+/**
+ * Displays and updates a new or existing Trade
+ */
 public class TradeActivity extends Activity {
     
     public static final int FOR_GIVING_LIST = 1;
@@ -32,6 +35,9 @@ public class TradeActivity extends Activity {
     TradeCardAdapter crListAdapter;
     TradeCardAdapter cgListAdapter;
     
+    /**
+     * Renders the initial Trade. A new Trade will be created, unless an existing trade is passed in a string Extra named tradeJson.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +102,9 @@ public class TradeActivity extends Activity {
         return true;
     }
     
+    /**
+     * Starts the Search flow with the intent of adding the result to the receiving list.
+     */
     public void addToReceivingList (View v)
     {
         Intent intent = new Intent(this, SearchActivity.class);
@@ -103,6 +112,9 @@ public class TradeActivity extends Activity {
         this.startActivityForResult(intent, FOR_RECEIVING_LIST);
     }
     
+    /**
+     * Starts the Search flow with the intent of adding the result to the giving list.
+     */
     public void addToGivingList (View v)
     {
         Intent intent = new Intent(this, SearchActivity.class);
@@ -110,6 +122,9 @@ public class TradeActivity extends Activity {
         this.startActivityForResult(intent, FOR_GIVING_LIST);
     }
 
+    /**
+     * Callback executed when a SearchResult to be added is chosen.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
@@ -145,6 +160,9 @@ public class TradeActivity extends Activity {
         }        
     }
     
+    /**
+     * Starts the async call to create a new Trade, unless one is already pending.
+     */
     private void createTrade()
     {
         tradeId = 0;
@@ -160,14 +178,16 @@ public class TradeActivity extends Activity {
                     tradeId = json.getInt("id");
                     onCardListUpdate();
                 }
-                catch (JSONException e) { } // like i give a f**k.
+                catch (JSONException e) { }
             }
         };
         
-        // TODO: AAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         api.createTradeAsync(3, callback);
     }
     
+    /**
+     * Loads an existing Trade from a JSON-formatted string Extra named "tradeJson"
+     */
     private void loadTrade()
     {
         try
@@ -191,6 +211,9 @@ public class TradeActivity extends Activity {
         catch (JSONException e) { }
     }
     
+    /**
+     * Updates the trade in the background, creating a new one if needed.
+     */
     private void onCardListUpdate()
     {
         // New trade + update already posted
@@ -209,7 +232,6 @@ public class TradeActivity extends Activity {
         {
             public void run(Object o)
             {
-                // I guess we should do some shit here.
             }
         };
         
@@ -232,6 +254,11 @@ public class TradeActivity extends Activity {
         catch (JSONException e) { }
     }
     
+    /**
+     * Calculates the total worth of a List<TradeCard>
+     * @param cards  The List of TradeCard objects to calculate the total value of.
+     * @return  A String containing the pretty-formatted dollar amount.
+     */
     private String getTotal(ArrayList<TradeCard> cards) {
         Double result = 0.0;
         for (TradeCard c : cards) {

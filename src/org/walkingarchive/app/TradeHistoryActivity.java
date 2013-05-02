@@ -19,10 +19,16 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
+/**
+ * Lists all Trades that belong to the user
+ */
 public class TradeHistoryActivity extends Activity {
 
     Handler marshaller = new Handler();
     
+    /**
+     * Renders the interface and starts the async call to get the Trade list
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +53,6 @@ public class TradeHistoryActivity extends Activity {
         };
         
         WalkingArchiveApi api = new WalkingArchiveApi();
-        // TODO: Make this not ghetto
         api.getTradeHistoryAsync(3, callback);
         
         // TODO: Show a busy screen here

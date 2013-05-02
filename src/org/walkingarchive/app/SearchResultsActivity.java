@@ -20,6 +20,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+/**
+ * Renders a list of Search Results
+ */
 public class SearchResultsActivity extends Activity {
     private static final String TAG = "SearchResultsActivity";
     ListView resultsListView;
@@ -27,6 +30,9 @@ public class SearchResultsActivity extends Activity {
     private ArrayList<SearchResult> resultListItems;
     private int nextPage;
     
+    /**
+     * Renders the list. Search Result JSON must be passed as a string extra named resultString 
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +95,10 @@ public class SearchResultsActivity extends Activity {
             });
     }
     
+    /**
+     * Disables the Load More button if there are no more results to retrieve
+     * @param json
+     */
     private void checkResults(JSONArray json) {
         //if there are less results than the max returned by the api, hide the load button
         if (json.length() < 20 || !getIntent().hasExtra("searchParameters")) {
@@ -102,6 +112,10 @@ public class SearchResultsActivity extends Activity {
         }
     }
     
+    /**
+     * Retrieves another set of results from the API cursor and renders them.
+     * @param v  The Load More button
+     */
     public void loadNextPage(View v) {
         Log.i(TAG, "Next page " + nextPage);
         AsyncTaskCallback resultsCallback = new AsyncTaskCallback()
@@ -137,6 +151,10 @@ public class SearchResultsActivity extends Activity {
         nextPage++;
     }
     
+    /**
+     * Adds a new Card into the results ListView
+     * @param json  The Card JSON to add
+     */
     private void insertIntoList(JSONArray json) {
         for(int i = 0; i < json.length(); i++){
             JSONObject cardJson;

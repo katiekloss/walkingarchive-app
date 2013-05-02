@@ -13,12 +13,18 @@ import java.io.IOException;
 
 import org.walkingarchive.app.api.WalkingArchiveApi;
 
+/**
+ * Displays the Android camera and performs OCR on the captured image
+ */
 public class ImageActivity extends Activity {
 
     public static final int REQUEST_IMAGE_CAPTURE = 150;
     
 	private Uri imageUri;
 
+	/**
+	 * Initializes the Android camera and ensures it has a file to write the image to.
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
 	{
@@ -40,6 +46,9 @@ public class ImageActivity extends Activity {
         startActivityForResult(pictureIntent, REQUEST_IMAGE_CAPTURE);
 	}
 
+	/**
+	 * Callback for when the Camera finishes. Performs a search with the OCR-ed text.
+	 */
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_IMAGE_CAPTURE)
@@ -65,9 +74,7 @@ public class ImageActivity extends Activity {
 					}
 				};
 				api.searchAsync(ocrResults, callback);
-			} else {
-				// TODO: wtf happens here?
-			}
+			} else { }
 		}
 	}
 
@@ -78,6 +85,10 @@ public class ImageActivity extends Activity {
         return true;
     }
 
+    /**
+     * Callback for when the API returns search results. Launches the Search Results activity.
+     * @param jsonResults
+     */
     public void onSearchResults(String jsonResults)
     {
         if(jsonResults != null)

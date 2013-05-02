@@ -13,15 +13,25 @@ import org.walkingarchive.app.AsyncTaskCallback;
 import android.os.AsyncTask;
 import android.util.Log;
 
+/**
+ * Abstracts the API server into synchronous and asynchronous requests
+ */
 public class WalkingArchiveApi {
     String urlBase;
     private final String TAG = "WalkingArchiveApi";
     
+    /**
+     * Initialize a new API object for an API server located at the given URL
+     * @param urlBase  The URL to the root of the API server
+     */
     public WalkingArchiveApi(String urlBase)
     {
         this.urlBase = urlBase;
     }
     
+    /**
+     * Initialize a new API object with the default API server.
+     */
     public WalkingArchiveApi()
     {
         // TODO: I can't decide whether this should be hardcoded or not.
@@ -30,6 +40,11 @@ public class WalkingArchiveApi {
         this("http://dev.mtgwalkingarchive.com:8080");
     }
     
+    /**
+     * Return the absolute URL of the given path on the API server
+     * @param path  The path on the API server
+     * @return      The absolute URL of this resource
+     */
     public String getAbsoluteUrl(String path)
     {
         return urlBase + path;
@@ -39,6 +54,12 @@ public class WalkingArchiveApi {
         // CARD & SEARCH
         //**********************************************************************************************
     
+    /**
+     * Return the JSON for the cards with the given name prefix
+     * @param name  The name prefix to search with
+     * @param page  The page of results to start returning from
+     * @return      JSON for this page of results
+     */
     public String getCardByName(String name, int page)
     {
         try
@@ -52,6 +73,12 @@ public class WalkingArchiveApi {
         }
     }
     
+    /**
+     * Starts the getCardByName method and returns immediately
+     * @param name      The name prefix to search with
+     * @param page      The page of results to start returning from
+     * @param callback  A callback to execute when the request finishes
+     */
     public void getCardByNameAsync(final String name, final int page, final AsyncTaskCallback callback)
     {
         Runnable asyncRunner = new Runnable()
@@ -66,6 +93,14 @@ public class WalkingArchiveApi {
         AsyncTask.execute(asyncRunner);
     }
     
+    /**
+     * Starts the getCardByNameManaTypeAsync method and returns
+     * @param name      The name prefix to search with
+     * @param type      The type string to search with
+     * @param mana      The mana to search with
+     * @param page      The results page to start returning from
+     * @param callback  A callback to execute when the method returns
+     */
     public void getCardByNameManaTypeAsync(final String name, final String type, 
             final String mana, final int page, final AsyncTaskCallback callback)
     {
@@ -81,6 +116,14 @@ public class WalkingArchiveApi {
         AsyncTask.execute(asyncRunner);
     }
     
+    /**
+     * Retrieves a list of cards with matching name, type, and mana.
+     * @param name      The name prefix to search with
+     * @param type      The type string to search with
+     * @param mana      The mana to search with
+     * @param page      The results page to start returning from
+     * @return          JSON for this page of results
+     */
     public String getCardByNameManaType(String name, String type, String mana, int page)
     {
         try
@@ -132,6 +175,11 @@ public class WalkingArchiveApi {
         }
     }
     
+    /**
+     * Executes a full text search.
+     * @param query  The text to search for
+     * @return       The JSON of the search results
+     */
     public String search(String query)
     {
         try
@@ -145,6 +193,11 @@ public class WalkingArchiveApi {
         }
     }
     
+    /**
+     * Starts the search() method and returns
+     * @param query     The text to search for
+     * @param callback  A callback to execute when the search returns
+     */
     public void searchAsync(final String query, final AsyncTaskCallback callback)
     {
         Runnable asyncRunner = new Runnable()
@@ -163,7 +216,11 @@ public class WalkingArchiveApi {
     //**********************************************************************************************
     // TRADE
     //**********************************************************************************************
-    
+    /**
+     * Retrieves the list of Trades that the user owns
+     * @param userId  The user to return Trades for
+     * @return        The JSON of the list of Trades
+     */
     public String getTradeHistory(Integer userId)
     {
         try
@@ -177,6 +234,11 @@ public class WalkingArchiveApi {
         }
     }
     
+    /**
+     * Starts the getTradeHistory method and returns
+     * @param userId    The user to return Trades for
+     * @param callback  A callback method to execute when the call returns
+     */
     public void getTradeHistoryAsync(final Integer userId, final AsyncTaskCallback callback)
     {
         Runnable asyncRunner = new Runnable()
@@ -191,6 +253,13 @@ public class WalkingArchiveApi {
         AsyncTask.execute(asyncRunner);
     }
     
+    /**
+     * Overwrites the cards in the Trade with those passed in.
+     * @param id         The Trade to update
+     * @param giving     The cards being given in this Trade
+     * @param receiving  The cards being received in this Trade
+     * @return           The updated Trade JSON
+     */
     public String updateTrade(Integer id, List<Integer> giving, List<Integer> receiving)
     {        
         JSONObject json = new JSONObject();
@@ -212,6 +281,13 @@ public class WalkingArchiveApi {
         }
     }
     
+    /**
+     * Starts the updateTrade method and returns
+     * @param id         The Trade to update
+     * @param giving     The cards being given in this Trade
+     * @param receiving  The cards being received in this Trade
+     * @param callback   A callback to execute when the call finishes
+     */
     public void updateTradeAsync(final Integer id, final List<Integer> giving, final List<Integer> receiving, final AsyncTaskCallback callback)
     {
         Runnable asyncRunner = new Runnable()
@@ -226,6 +302,11 @@ public class WalkingArchiveApi {
         AsyncTask.execute(asyncRunner);
     }
     
+    /**
+     * Creates a new Trade for the given user
+     * @param userId  The user to create a Trade for
+     * @return        The new Trade's JSON
+     */
     public String createTrade(int userId)
     {
         JSONObject json = new JSONObject();
@@ -245,6 +326,11 @@ public class WalkingArchiveApi {
         }
     }
     
+    /**
+     * Starts the createTrade method and returns
+     * @param userId    The user to create a Trade for
+     * @param callback  A callback to execute when the call returns
+     */
     public void createTradeAsync(final int userId, final AsyncTaskCallback callback)
     {
         Runnable asyncRunner = new Runnable()
@@ -263,6 +349,11 @@ public class WalkingArchiveApi {
     // DECK
     //**********************************************************************************************
     
+    /**
+     * Retrieves a list of Decks that the user owns
+     * @param userId    The user whose Decks we're returning
+     * @return          JSON list of Decks
+     */
     public String getDecks(Integer userId) {
         try {
             return WebHelper.GET(getAbsoluteUrl("/deck/user/" +userId.toString()));
@@ -273,6 +364,11 @@ public class WalkingArchiveApi {
         }
     }
     
+    /**
+     * Starts the getDecks method and returns
+     * @param userId    The user whose Decks we're returning
+     * @param callback  A callback method to execute when the call finishes
+     */
     public void getDecksAsync(final int userId, final AsyncTaskCallback callback) {
         Runnable asyncRunner = new Runnable() {
             public void run() {
@@ -284,6 +380,12 @@ public class WalkingArchiveApi {
         AsyncTask.execute(asyncRunner);
     }
 
+    /**
+     * Creates a new named deck for a user
+     * @param userId    The user who owns the new Deck
+     * @param name      The name of the Deck
+     * @return          The Deck's JSON
+     */
     public String createDeck(int userId, String name) {
         JSONObject json = new JSONObject();
         try {
@@ -303,6 +405,12 @@ public class WalkingArchiveApi {
         }
     }
     
+    /**
+     * Starts the createDeck method and returns
+     * @param userId    The user who owns the new Deck
+     * @param name      The name of the Deck
+     * @param callback  A callback to execute when the call returns
+     */
     public void createDeckAsync(final Integer userId, final String name, final AsyncTaskCallback callback) {
         Runnable asyncRunner = new Runnable()
         {
@@ -316,6 +424,13 @@ public class WalkingArchiveApi {
         AsyncTask.execute(asyncRunner);
     }
 
+    /**
+     * Starts the updateDeck method and returns
+     * @param deckId    The deck to update
+     * @param name      The name of the Deck (possibly updated)
+     * @param cards     The cards to place in the Deck (overwriting the old ones)
+     * @param callback  A callback method to execute when the call finishes
+     */
     public void updateDeckAsync(final int deckId, final String name, final List<Integer> cards, final AsyncTaskCallback callback) {
         Runnable asyncRunner = new Runnable() {
             public void run() {
@@ -327,6 +442,13 @@ public class WalkingArchiveApi {
         AsyncTask.execute(asyncRunner);
     }
     
+    /**
+     * Starts the updateDeck method and returns
+     * @param deckId    The deck to update
+     * @param name      The name of the Deck (possibly updated)
+     * @param cards     The cards to place in the Deck (overwriting the old ones)
+     * @return          The JSON of the updated Deck
+     */
     public String updateDeck(Integer id, String name, List<Integer> cards) {
         JSONObject json = new JSONObject();
         try {

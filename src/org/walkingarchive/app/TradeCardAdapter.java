@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+/**
+ * Formats a List<TradeCard> for rendering
+ */
 public class TradeCardAdapter extends BaseAdapter {
     private ArrayList<TradeCard> cardList;
     private Context context;

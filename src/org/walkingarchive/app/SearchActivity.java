@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+/**
+ * Renders the Search interface and executes the search API call
+ */
 public class SearchActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +21,10 @@ public class SearchActivity extends Activity {
         setContentView(R.layout.search);
     }
 
-    
+    /**
+     * Starts the async call to the API to retrieve search results for the given criteria
+     * @param view  The Search button
+     */
     public void onSearchButtonDown(View view)
     {
         EditText cardName = (EditText) findViewById(R.id.cardName);
@@ -42,6 +48,10 @@ public class SearchActivity extends Activity {
                 resultsCallback);
     }
     
+    /**
+     * Callback for when search results are returned
+     * @param resultString  The JSON formatted list of Cards
+     */
     public void searchResultsReturned(String resultString)
     {
 
@@ -75,12 +85,19 @@ public class SearchActivity extends Activity {
         }
     }
 
+    /**
+     * Starts the ImageActivity activity when the Scan Card button is clicked
+     * @param v  The button
+     */
     public void onOpenCamera(View v)
     {
         Intent intent = new Intent(this, ImageActivity.class);
         this.startActivity(intent);
     }
     
+    /**
+     * Passes search result selection back to caller activity if we were launched as a child.
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent data)
     {
         setResult(resultCode, data);
